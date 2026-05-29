@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ADP SecurTime — UX Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#CC0000;--red-dark:#A80000;
+  --red-lt:#FFF0F0;--red-mid:#F5C6C6;
+  --text:#1A1A1A;--muted:#666666;
+  --border:#E0E0E0;--bg:#F4F4F4;--white:#fff;
+  --serif:'DM Serif Display',serif;--sans:'Outfit',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── Unified Nav Header ──────────────────────── */
+.portfolio-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 300;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  transition: all 0.3s;
+}
+.portfolio-header span {
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #1A1A1A;
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.header-avatar-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.header-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.header-cta {
+  background: #5844a4; /* Premium twilight indigo */
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.header-cta:hover {
+  background: #433285;
+}
+
+/* ── Sub-header ──────────────────────────────── */
+.sub-header {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  z-index: 290;
+  height: 48px;
+  background: #0a1d37; /* ADP Blue */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  transition: all 0.3s;
+}
+.sub-header-inner {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.breadcrumbs a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.breadcrumbs a:hover {
+  color: #fff;
+}
+.breadcrumbs .sep {
+  color: rgba(255, 255, 255, 0.25);
+}
+.breadcrumbs .current {
+  color: #fff;
+}
+.sub-nav-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+.sub-nav-links a {
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+.sub-nav-links a:hover {
+  color: #fff;
+  border-bottom-color: #CC0000; /* Red ADP accent color */
+}
+
+/* ── HERO ────────────────────────────────────── */
+.hero{background:var(--red);padding:130px 48px 0;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-80px;right:-100px;width:480px;height:480px;background:radial-gradient(circle,rgba(0,0,0,.12) 0%,transparent 65%);pointer-events:none}
+.hero-inner{max-width:1180px;margin:0 auto;position:relative}
+.hero-chip{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:22px}
+.hero h1{font-family:var(--serif);font-size:clamp(34px,5vw,62px);line-height:1.06;color:#fff;margin-bottom:18px;max-width:860px;text-transform:uppercase;letter-spacing:.03em}
+.hero h1 em{font-style:italic;color:rgba(255,255,255,.8);text-transform:none}
+.hero-lead{font-size:17px;color:rgba(255,255,255,.7);max-width:600px;line-height:1.8;font-weight:300;margin-bottom:54px}
+.hero-stats{display:flex;border-top:1px solid rgba(255,255,255,.15)}
+.stat{flex:1;padding:22px 24px 32px;border-right:1px solid rgba(255,255,255,.12)}
+.stat:first-child{padding-left:0}
+.stat:last-child{border-right:none}
+.stat-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.45);font-weight:700;margin-bottom:5px}
+.stat-val{font-size:14px;color:rgba(255,255,255,.88);font-weight:500}
+
+/* ── SECTION SHELL ───────────────────────────── */
+.sec{padding:44px 48px}
+.sec-inner{max-width:1180px;margin:0 auto}
+.lbl{font-size:10px;text-transform:uppercase;letter-spacing:2.5px;font-weight:700;color:var(--red);margin-bottom:10px}
+.sec-title{font-family:var(--serif);font-size:clamp(22px,3vw,36px);line-height:1.12;color:var(--text);margin-bottom:14px;text-transform:uppercase;letter-spacing:.03em}
+.sec-desc{font-size:16px;color:var(--muted);max-width:620px;line-height:1.8;font-weight:300;margin-bottom:24px}
+
+/* ── OVERVIEW ────────────────────────────────── */
+.ov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.ov-card{background:var(--white);padding:28px 26px}
+.ov-icon{width:34px;height:34px;border-radius:8px;background:var(--red-lt);display:flex;align-items:center;justify-content:center;font-size:15px;margin-bottom:12px}
+.ov-card h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text);margin-bottom:8px}
+.ov-card p{font-size:14px;line-height:1.65;color:var(--muted)}
+
+/* ── 5D PROCESS — LIGHT GREY BG ──────────────── */
+.process-bg{background:var(--bg)}
+.process-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.pstep{background:var(--white);border:1px solid var(--border);border-top:3px solid transparent;padding:26px 18px;border-radius:8px;transition:all .22s}
+.pstep:hover{border-top-color:var(--red);box-shadow:0 8px 28px rgba(0,0,0,.07);transform:translateY(-2px)}
+.pstep-n{font-family:var(--serif);font-size:34px;color:var(--red-mid);line-height:1;font-style:italic;margin-bottom:10px}
+.pstep-d{font-family:var(--serif);font-size:24px;color:var(--red);font-style:italic;margin-bottom:4px}
+.pstep-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;text-transform:uppercase;letter-spacing:.9px}
+.pstep-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+.ptags{display:flex;flex-wrap:wrap;gap:5px}
+.ptag{font-size:10px;padding:3px 8px;border-radius:10px;background:var(--red-lt);color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+
+/* ── RESEARCH ────────────────────────────────── */
+.method-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:38px}
+.mchip{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:18px;display:flex;gap:12px;align-items:flex-start}
+.mchip-icon{font-size:18px;flex-shrink:0;margin-top:2px}
+.mchip-val{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;text-transform:uppercase;letter-spacing:.3px}
+.mchip-key{font-size:12px;color:var(--muted);line-height:1.4}
+.heart-row{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--border);border-radius:10px;overflow:hidden;margin-bottom:48px}
+.hi{padding:20px 16px;display:flex;flex-direction:column;gap:5px}
+.hi-h{background:#F0FDF4}.hi-e{background:#EFF6FF}.hi-a{background:var(--red-lt)}.hi-r{background:#FDF4FF}.hi-t{background:#FFF7ED}
+.hi-ltr{font-family:var(--serif);font-size:30px;font-style:italic;line-height:1}
+.hi-h .hi-ltr{color:#16803C}.hi-e .hi-ltr{color:#1D4ED8}.hi-a .hi-ltr{color:var(--red)}.hi-r .hi-ltr{color:#7E22CE}.hi-t .hi-ltr{color:#B45309}
+.hi-name{font-size:10px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.9px}
+.hi-desc{font-size:11px;color:var(--muted);line-height:1.5}
+.pp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.pp-col{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.pp-head{padding:13px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.pp-role{font-size:11px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.8px}
+.pp-cnt{font-size:11px;color:var(--muted)}
+.pp-emp .pp-head{background:var(--red-lt);border-bottom-color:var(--red-mid)}
+.pp-mgr .pp-head{background:#EFF6FF;border-bottom-color:#DBEAFE}
+.pp-hr .pp-head{background:#FFF7ED;border-bottom-color:#FED7AA}
+.pp-adm .pp-head{background:#F5F3FF;border-bottom-color:#DDD6FE}
+.pp-list{list-style:none;padding:8px 0}
+.pp-list li{display:flex;align-items:flex-start;gap:8px;padding:7px 14px;font-size:13px;color:var(--text);line-height:1.4;border-bottom:1px solid var(--border)}
+.pp-list li:last-child{border-bottom:none}
+.pp-n{font-size:10px;font-weight:700;flex-shrink:0;padding-top:2px;min-width:16px}
+.pp-emp .pp-n{color:var(--red)}.pp-mgr .pp-n{color:#1D4ED8}.pp-hr .pp-n{color:#C05621}.pp-adm .pp-n{color:#7E22CE}
+.insight-bar{background:var(--red-lt);border:1px solid var(--red-mid);border-radius:10px;padding:22px 24px;margin-top:22px;display:flex;gap:14px;align-items:flex-start}
+
+/* ── PERSONAS ────────────────────────────────── */
+.persona-wrap{margin-bottom:36px}
+.flow-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:var(--muted);padding-bottom:12px;border-bottom:2px solid var(--red);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.flow-num{width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.persona-card{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.persona-head{background:linear-gradient(135deg,var(--red) 0%,var(--red-dark) 100%);padding:34px 38px;display:flex;gap:26px;align-items:flex-start;border-left:5px solid rgba(0,0,0,.18)}
+.p-avatar{width:76px;height:76px;border-radius:50%;border:3px solid rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:26px;color:rgba(255,255,255,.9);background:rgba(0,0,0,.2);flex-shrink:0;font-style:italic}
+.p-name{font-family:var(--serif);font-size:24px;color:#fff;margin-bottom:4px;text-transform:uppercase;letter-spacing:.03em}
+.p-role{font-size:13px;color:rgba(255,255,255,.65);margin-bottom:14px}
+.p-tags{display:flex;flex-wrap:wrap;gap:6px}
+.p-tag{font-size:11px;padding:3px 11px;border-radius:20px;background:rgba(0,0,0,.15);border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.88);font-weight:500}
+.persona-body{display:grid;grid-template-columns:repeat(3,1fr)}
+.psec{padding:24px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.psec:nth-child(3n){border-right:none}
+.psec:nth-child(n+4){border-bottom:none}
+.psec h4{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:700;margin-bottom:12px}
+.psec ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.psec li{font-size:14px;color:var(--text);padding-left:16px;position:relative;line-height:1.5}
+.psec li::before{content:'→';position:absolute;left:0;color:var(--red);font-size:12px;top:1px}
+
+/* ── SCREENS ─────────────────────────────────── */
+.tab-bar{display:flex;gap:4px;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:4px;width:fit-content;margin-bottom:40px}
+.stab{padding:8px 20px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all .18s;font-family:var(--sans);text-transform:uppercase;letter-spacing:.7px}
+.stab.active{background:var(--red);color:#fff}
+.stab:not(.active):hover{background:var(--red-lt);color:var(--red)}
+.screens-group{display:none}
+.screens-group.on{display:block}
+.flow-sec{margin-bottom:50px}
+.flow-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.flow-lbl .fn{width:22px;height:22px;border-radius:50%;background:var(--red-lt);color:var(--red);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.screens-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.s-card{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:zoom-in;transition:transform .2s,box-shadow .2s}
+.s-card:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(0,0,0,.1)}
+.s-img{background:#EBEBEB;border-bottom:1px solid var(--border);overflow:hidden}
+.s-img img{width:100%;display:block;transition:transform .3s}
+.s-card:hover .s-img img{transform:scale(1.025)}
+.s-meta{padding:14px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.s-info h4{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px;text-transform:uppercase;letter-spacing:.4px}
+.s-info p{font-size:12px;color:var(--muted);line-height:1.5}
+.badge{font-size:10px;padding:3px 10px;border-radius:20px;font-weight:700;white-space:nowrap;flex-shrink:0;text-transform:uppercase;letter-spacing:.4px}
+.b-dash{background:#EEF3FD;color:#1D4ED8}
+.b-modal{background:var(--red-lt);color:var(--red)}
+.b-profile{background:#F0FDF4;color:#16803C}
+.b-absence{background:#FFF7ED;color:#C05621}
+.b-attend{background:#F5F3FF;color:#7C3AED}
+.b-time{background:#FDF2F8;color:#9D174D}
+.b-report{background:#ECFDF5;color:#065F46}
+.b-settings{background:#F1F5F9;color:#475569}
+.b-cal{background:#EFF6FF;color:#1D4ED8}
+.b-team{background:var(--red-lt);color:var(--red)}
+.b-shift{background:#F5F3FF;color:#7C3AED}
+.b-bulk{background:#F0FDF4;color:#16803C}
+.b-help{background:#FFF7ED;color:#B45309}
+.b-admin{background:var(--red-lt);color:var(--red)}
+.b-kiosk{background:#F0FDF4;color:#166534}
+
+/* ── DESIGN DECISIONS ────────────────────────── */
+.dec-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.dec-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:28px;border-top:3px solid transparent;transition:border-color .2s}
+.dec-card:hover{border-top-color:var(--red)}
+.dec-n{font-family:var(--serif);font-size:38px;color:var(--red-mid);line-height:1;margin-bottom:12px;font-style:italic;display:flex;align-items:center;gap:12px}
+.dec-n::after{content:'';flex:1;height:1px;background:var(--border)}
+.dec-card h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;line-height:1.35;text-transform:uppercase;letter-spacing:.4px}
+.dec-card p{font-size:14px;color:var(--muted);line-height:1.7}
+.dec-pill{display:inline-flex;align-items:center;background:var(--red-lt);color:var(--red);font-size:10px;font-weight:700;padding:4px 12px;border-radius:10px;margin-top:12px;text-transform:uppercase;letter-spacing:.5px}
+
+/* ── COLLABORATORS ───────────────────────────── */
+.collab-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.collab-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:22px;border-top:3px solid var(--red);transition:box-shadow .2s}
+.collab-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.07)}
+.collab-icon{width:42px;height:42px;border-radius:10px;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:13px}
+.collab-role{font-size:11px;font-weight:700;color:var(--red);margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px}
+.collab-contrib{font-size:13px;color:var(--muted);line-height:1.6}
+.collab-tag{display:inline-flex;margin-top:12px;font-size:10px;padding:3px 10px;border-radius:10px;background:var(--red-lt);color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+
+/* ── OUTCOMES ────────────────────────────────── */
+.out-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:40px}
+.out-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--red);border-radius:12px;padding:28px 22px;text-align:center}
+.out-n{font-family:var(--serif);font-size:44px;color:var(--red);line-height:1;margin-bottom:6px;font-style:italic}
+.out-l{font-size:13px;color:var(--muted);line-height:1.5}
+.learnings{background:var(--red);border-radius:16px;padding:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
+.learn h4{font-size:13px;font-weight:700;color:#fff;margin-bottom:8px;text-transform:uppercase;letter-spacing:.7px}
+.learn p{font-size:13px;color:rgba(255,255,255,.62);line-height:1.7}
+
+/* ── FOOTER ──────────────────────────────────── */
+footer{background:var(--red);padding:44px 48px;text-align:center;border-top:4px solid var(--red-dark)}
+.foot-name{font-family:var(--serif);font-size:22px;color:#fff;margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em}
+.foot-designer{font-size:14px;color:rgba(255,255,255,.75);font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:1.5px}
+.foot-sub{font-size:12px;color:rgba(255,255,255,.42);text-transform:uppercase;letter-spacing:.8px}
+
+/* ── LIGHTBOX ────────────────────────────────── */
+.lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:1000;align-items:center;justify-content:center;padding:32px}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:90vh;border-radius:6px;box-shadow:0 40px 80px rgba(0,0,0,.6)}
+.lb-close{position:absolute;top:18px;right:22px;background:rgba(255,255,255,.1);border:none;color:#fff;width:38px;height:38px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .18s}
+.lb-close:hover{background:rgba(255,255,255,.22)}
+
+@media(max-width:900px){
+  .portfolio-header { padding: 0 20px; }
+  .sub-header-inner { padding: 0 20px; }
+  .sub-nav-links { display: none; }
+  .hero { padding: 100px 20px 0; }
+  .sec{padding:30px 20px}
+  .ov-grid,.persona-body,.process-grid,.dec-grid,.out-grid,.learnings,.collab-grid,.method-bar,.pp-grid,.heart-row{grid-template-columns:1fr}
+  .screens-grid{grid-template-columns:1fr}
+  .hero-stats{flex-direction:column}
+  .stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.1);padding:14px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Main Header ── -->
+<header class="portfolio-header">
+  <a href="/" class="header-logo">
+    <div class="header-avatar-wrap">
+      <img src="/uploads/profile.png" alt="Bharath Hegde" class="header-avatar">
+    </div>
+    <span>BHARATH HEGDE</span>
+  </a>
+  <div class="header-right">
+    <a href="/#contact" class="header-cta">Let's Talk</a>
+  </div>
+</header>
+
+<!-- ── Sub-header ── -->
+<div class="sub-header">
+  <div class="sub-header-inner">
+    <nav class="breadcrumbs">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <span class="current">ADP - SecurTime UX Case Study</span>
+    </nav>
+    <ul class="sub-nav-links">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#process">5D Process</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#personas">Personas</a></li>
+      <li><a href="#screens">Screens</a></li>
+      <li><a href="#decisions">Decisions</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#outcomes">Outcomes</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── HERO ── -->
+<div class="hero" style="background-color: rgb(0, 8, 68); color: rgb(244, 244, 244)">
+  <div class="hero-inner">
+    <div class="hero-chip">ADP &nbsp;·&nbsp; Waypoint Design System &nbsp;·&nbsp; 2024–2025</div>
+    <h1 style="color: rgb(0, 0, 0)"><span style="color:rgb(255,255,255)">Redesigning <em style="color: rgb(204, 1, 0)">SecurTime</em><br>from the Ground Up</span></h1>
+    <p class="hero-lead">A complete end-to-end UX redesign of ADP's enterprise time &amp; attendance platform — covering employees, managers, and admins through a rigorous 5D design process and moderated user research.</p>
+    <div class="hero-stats" style="border-color: rgb(204, 1, 0)">
+      <div class="stat" style="border-color: rgb(167, 5, 3)"><div class="stat-label" style="color: rgb(130, 130, 130)"><span style="color:rgb(231,132,125)"><span style="color:rgb(143,143,143)"><span style="color:rgb(115,119,151)">My Role</span></span></span></div><div class="stat-val" style="color: rgb(255, 255, 255)">Lead UX Designer</div></div>
+      <div class="stat" style="border-color: rgb(167, 5, 3)"><div class="stat-label">Platform</div><div class="stat-val" style="color: rgb(255, 255, 255)">Web Application and Mobile</div></div>
+      <div class="stat" style="border-color: rgb(167, 5, 3)"><div class="stat-label">Design System</div><div class="stat-val" style="color: rgb(255, 255, 255)">ADP Waypoint</div></div>
+      <div class="stat" style="border-color: rgb(167, 5, 3)"><div class="stat-label">Framework</div><div class="stat-val">ADP 5D Process</div></div>
+      <div class="stat" style="border-color: rgb(167, 5, 3)"><div class="stat-label">Research</div><div class="stat-val">17 Pain Points · 20 Participants</div></div>
+      <div class="stat" style="border-color: rgb(167, 5, 3)"><div class="stat-label" style="color: rgb(231, 132, 125)">Tool</div><div class="stat-val" style="color: rgb(255, 255, 255)">Figma &amp; Figma Make AI</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── OVERVIEW ── -->
+<section id="overview" class="sec" style="background: var(--white); background-color: rgb(255, 255, 255)">
+  <div class="sec-inner">
+    <div class="lbl">Project Overview</div>
+    <h2 class="sec-title">A Legacy Product, Reimagined Entirely</h2>
+    <p class="sec-desc">SecurTime is ADP's enterprise time and attendance solution. Years of accumulated UX debt left the interface dense and inconsistent. I was tasked with a complete ground-up redesign across all user roles.</p>
+    <div class="ov-grid">
+      <div class="ov-card"><div class="ov-icon">🎯</div><h3>The Problem</h3><p>The legacy interface lacked visual hierarchy, had no clear user journeys, and used inconsistent patterns. Employees and managers struggled to complete basic tasks efficiently.</p></div>
+      <div class="ov-card"><div class="ov-icon">🧭</div><h3>My Approach</h3><p>Followed ADP's 5D process — Discover, Define, Develop, Design, Deliver — anchored in 20-participant user research and the Waypoint Design System throughout.</p></div>
+      <div class="ov-card"><div class="ov-icon">✦</div><h3>The Outcome</h3><p>A modern, scalable UI serving three distinct user roles within one cohesive system. Clear hierarchy, predictable navigation, and dashboard-first architecture across all flows.</p></div>
+      <div class="ov-card"><div class="ov-icon">🗂️</div><h3>Modules Redesigned</h3><p>Dashboard, Punch In/Out, Absence Management, Time &amp; Attendance, Timesheet, Kiosk Management, Reports, Settings, Calendar, Team Management, Shift Management, Bulk Upload, Help Center.</p></div>
+      <div class="ov-card"><div class="ov-icon">👥</div><h3>User Personas</h3><p>Three user roles shaped every decision: Employee (Lisa Morgan), Manager (Nitesh), and Admin (Ritesh). Shared patterns ensure visual consistency; role-specific flows address distinct goals.</p></div>
+      <div class="ov-card"><div class="ov-icon">🔧</div><h3>Methods &amp; Tools</h3><p>Figma hi-fi prototyping, ADP Waypoint DS, heuristic evaluation of legacy product, moderated usability sessions, HEART framework evaluation, and iterative stakeholder reviews.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 5D PROCESS ── -->
+<section id="process" class="sec process-bg">
+  <div class="sec-inner">
+    <div class="lbl">Design Process</div>
+    <h2 class="sec-title">The ADP 5D Framework</h2>
+    <p class="sec-desc">ADP's human-centered design process provided a structured path from research to delivery. Each phase produced concrete outputs that fed directly into the next.</p>
+    <div class="process-grid">
+      <div class="pstep"><div class="pstep-n">01</div><div class="pstep-d">D</div><div class="pstep-name">Discover</div><div class="pstep-desc">Heuristic audit of legacy SecurTime, stakeholder interviews, and a 20-participant moderated user study revealing 17 pain points.</div><div class="ptags"><span class="ptag">Heuristic Audit</span><span class="ptag">User Study</span><span class="ptag">Competitive Review</span></div></div>
+      <div class="pstep"><div class="pstep-n">02</div><div class="pstep-d">D</div><div class="pstep-name">Define</div><div class="pstep-desc">Synthesized findings into 4 personas, journey maps, and clearly articulated HMW problem statements for each user role.</div><div class="ptags"><span class="ptag">4 Personas</span><span class="ptag">Journey Maps</span><span class="ptag">HMW Statements</span></div></div>
+      <div class="pstep"><div class="pstep-n">03</div><div class="pstep-d">D</div><div class="pstep-name">Develop</div><div class="pstep-desc">Restructured the IA, mapped all user flows, and explored solutions through low-to-mid fidelity wireframes and concept testing.</div><div class="ptags"><span class="ptag">IA Mapping</span><span class="ptag">User Flows</span><span class="ptag">Wireframes</span></div></div>
+      <div class="pstep"><div class="pstep-n">04</div><div class="pstep-d">D</div><div class="pstep-name">Design</div><div class="pstep-desc">Built high-fidelity Figma designs for all three roles using ADP's Waypoint Design System components, patterns, and guidelines.</div><div class="ptags"><span class="ptag">Hi-Fi Figma</span><span class="ptag">Waypoint DS</span><span class="ptag">Prototype</span></div></div>
+      <div class="pstep"><div class="pstep-n">05</div><div class="pstep-d">D</div><div class="pstep-name">Deliver</div><div class="pstep-desc">Annotated screens, component redlines, interaction specs, and developer handoff documentation for engineering implementation.</div><div class="ptags"><span class="ptag">Annotations</span><span class="ptag">Redlines</span><span class="ptag">Dev Handoff</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RESEARCH ── -->
+<section id="research" class="sec" style="background:var(--white)">
+  <div class="sec-inner">
+    <div class="lbl">Research &amp; Discovery</div>
+    <h2 class="sec-title">17 Pain Points. 4 Roles. One Rigorous Study.</h2>
+    <p class="sec-desc">Before a single pixel was designed, a structured moderated user study uncovered 17 pain points across the LMS — evaluated through Google's HEART framework, grouped by persona, and mapped directly to design decisions.</p>
+    <div class="method-bar">
+      <div class="mchip"><span class="mchip-icon">👥</span><div><div class="mchip-val">20 Participants</div><div class="mchip-key">5 per role — Admin · Manager · Employee · HR</div></div></div>
+      <div class="mchip"><span class="mchip-icon">⏱</span><div><div class="mchip-val">45 Min Sessions</div><div class="mchip-key">5 task-based scenario questions per participant</div></div></div>
+      <div class="mchip"><span class="mchip-icon">🖥</span><div><div class="mchip-val">Virtual Format</div><div class="mchip-key">Moderated sessions via Webex / MS Teams</div></div></div>
+      <div class="mchip"><span class="mchip-icon">💡</span><div><div class="mchip-val">HEART Framework</div><div class="mchip-key">UX metric tags applied to every task in the study</div></div></div>
+    </div>
+    <div class="lbl" style="margin-bottom:12px">Evaluation Framework</div>
+    <div class="heart-row">
+      <div class="hi hi-h"><div class="hi-ltr">H</div><div class="hi-name">Happiness</div><div class="hi-desc">User satisfaction and perceived ease or delight</div></div>
+      <div class="hi hi-e"><div class="hi-ltr">E</div><div class="hi-name">Engagement</div><div class="hi-desc">Frequency, depth, and time spent in each flow</div></div>
+      <div class="hi hi-a"><div class="hi-ltr">A</div><div class="hi-name">Adoption</div><div class="hi-desc">How quickly users adopt the product or new features</div></div>
+      <div class="hi hi-r"><div class="hi-ltr">R</div><div class="hi-name">Retention</div><div class="hi-desc">Whether users return to the product over time</div></div>
+      <div class="hi hi-t"><div class="hi-ltr">T</div><div class="hi-name">Task Success</div><div class="hi-desc">Efficiency and accuracy completing key tasks</div></div>
+    </div>
+    <div class="lbl" style="margin-bottom:6px">17 Pain Points — Grouped by Persona</div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:18px;line-height:1.6">Shared ID numbers appear across personas — indicating systemic issues that cut across roles and drove core architecture decisions.</p>
+    <div class="pp-grid">
+      <div class="pp-col pp-emp">
+        <div class="pp-head"><span class="pp-role">Employee</span><span class="pp-cnt">10 pain points</span></div>
+        <ul class="pp-list">
+          <li><span class="pp-n">01</span>Communication on leave management</li>
+          <li><span class="pp-n">03</span>Reporting change in leave system</li>
+          <li><span class="pp-n">05</span>Cancellation of approved leaves</li>
+          <li><span class="pp-n">06</span>Request leave carry forward config</li>
+          <li><span class="pp-n">07</span>Unable to apply leave</li>
+          <li><span class="pp-n">09</span>Casual leave mismatch</li>
+          <li><span class="pp-n">10</span>Leave module system down time</li>
+          <li><span class="pp-n">12</span>New joiners LMS enable</li>
+          <li><span class="pp-n">14</span>Error in Earned Leave (EL)</li>
+          <li><span class="pp-n">15</span>Paternity leave</li>
+        </ul>
+      </div>
+      <div class="pp-col pp-mgr">
+        <div class="pp-head"><span class="pp-role">Manager</span><span class="pp-cnt">9 pain points</span></div>
+        <ul class="pp-list">
+          <li><span class="pp-n">01</span>Communication on leave management</li>
+          <li><span class="pp-n">02</span>Leave approval status visibility</li>
+          <li><span class="pp-n">03</span>Reporting change in leave system</li>
+          <li><span class="pp-n">04</span>Incorrect leave status shown</li>
+          <li><span class="pp-n">05</span>Cancellation of approved leaves</li>
+          <li><span class="pp-n">08</span>Apply leave on behalf of employee</li>
+          <li><span class="pp-n">10</span>Leave module system down time</li>
+          <li><span class="pp-n">11</span>Reminder for leave regularization</li>
+          <li><span class="pp-n">13</span>Error in advance leave</li>
+        </ul>
+      </div>
+      <div class="pp-col pp-hr">
+        <div class="pp-head"><span class="pp-role">HR</span><span class="pp-cnt">8 pain points</span></div>
+        <ul class="pp-list">
+          <li><span class="pp-n">01</span>Communication on leave management</li>
+          <li><span class="pp-n">02</span>Leave approval status visibility</li>
+          <li><span class="pp-n">04</span>Incorrect leave status shown</li>
+          <li><span class="pp-n">08</span>Apply leave on behalf of employee</li>
+          <li><span class="pp-n">10</span>Leave module system down time</li>
+          <li><span class="pp-n">11</span>Reminder for leave regularization</li>
+          <li><span class="pp-n">13</span>Error in advance leave</li>
+          <li><span class="pp-n">16</span>Generate leave report</li>
+        </ul>
+      </div>
+      <div class="pp-col pp-adm">
+        <div class="pp-head"><span class="pp-role">Admin</span><span class="pp-cnt">4 pain points</span></div>
+        <ul class="pp-list">
+          <li><span class="pp-n">02</span>Leave approval status visibility</li>
+          <li><span class="pp-n">04</span>Incorrect leave status shown</li>
+          <li><span class="pp-n">10</span>Leave module system down time</li>
+          <li><span class="pp-n">11</span>Reminder for leave regularization</li>
+        </ul>
+        <div style="padding:14px 16px;background:var(--bg);border-top:1px solid var(--border)">
+          <p style="font-size:12px;color:var(--muted);line-height:1.6"><strong style="color:var(--text)">#01, #02, #10, #11</strong> appear in 3–4 personas — these became the highest-priority architectural drivers.</p>
+        </div>
+      </div>
+    </div>
+    <div class="insight-bar">
+      <div style="font-size:20px;flex-shrink:0">🔗</div>
+      <div><div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px">Cross-Cutting Pain Points Drove The Core Architecture</div><div style="font-size:14px;color:var(--text);line-height:1.7">Pain points <strong>#01</strong> (communication), <strong>#02</strong> (approval status), <strong>#10</strong> (system reliability), and <strong>#11</strong> (regularization reminders) appeared across 3+ personas — signalling systemic issues that cosmetic polish alone couldn't fix. These became the primary drivers behind the dashboard-first architecture, persistent status pill system, Quick Actions sidebar, and the Subscriptions &amp; Alarms module.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PERSONAS ── -->
+<section id="personas" class="sec" style="background:var(--bg)">
+  <div class="sec-inner">
+    <div class="lbl">User Personas</div>
+    <h2 class="sec-title">Designing For Distinct, Real-World Needs</h2>
+    <p class="sec-desc">SecurTime serves three primary user roles in one product. Each persona has different goals, permissions, and daily workflows — the redesign had to honour all of them within a single cohesive system.</p>
+
+    <!-- EMPLOYEE -->
+    <div class="persona-wrap">
+      <div class="flow-label"><div class="flow-num">1</div>Employee Persona</div>
+      <div class="persona-card">
+        <div class="persona-head">
+          <div class="p-avatar">LM</div>
+          <div>
+            <div class="p-name">Lisa Morgan</div>
+            <div class="p-role">Support Engineer &nbsp;·&nbsp; ADP-SecurAX Tech Solutions &nbsp;·&nbsp; Bengaluru Branch</div>
+            <div class="p-tags"><span class="p-tag">Emp ID: 40113</span><span class="p-tag">Dept: DEL - Support</span><span class="p-tag">Reports to: Muniraju</span><span class="p-tag">Joined: July 2022</span><span class="p-tag">Shift: Regular 9:00–17:00</span></div>
+          </div>
+        </div>
+        <div class="persona-body">
+          <div class="psec"><h4>Core Goals</h4><ul><li>Punch in/out quickly with minimal steps</li><li>Track leave balances at a glance</li><li>Apply for leave and see real-time status</li><li>View and export timesheets</li><li>Submit and track shift change requests</li></ul></div>
+          <div class="psec"><h4>Pain Points (Legacy)</h4><ul><li>Punch buried under multiple nav levels</li><li>Leave balances required 4+ clicks</li><li>No unified activity feed for tracking</li><li>Dense data tables with no quick actions</li><li>Settings lacked personalization controls</li></ul></div>
+          <div class="psec"><h4>Daily Tasks</h4><ul><li>Punch in at Office – Bangalore</li><li>Review calendar for attendance status</li><li>Apply for casual or sick leave</li><li>Submit comp-off or shift change requests</li><li>Monitor approval status updates</li></ul></div>
+          <div class="psec"><h4>Key Screens</h4><ul><li>Dashboard (at-a-glance + punch flow)</li><li>Punch In/Out confirmation modal</li><li>Absence Requests (5 sub-tabs)</li><li>Attendance Requests (4 sub-tabs)</li><li>Timesheet · Reports · Settings · Calendar</li></ul></div>
+          <div class="psec"><h4>Motivations</h4><ul><li>Transparency in attendance records</li><li>Self-service HR without email chains</li><li>Localization support for multilingual teams</li><li>Confidence that requests are tracked</li></ul></div>
+          <div class="psec"><h4>Tech Comfort</h4><ul><li>Mid-level digital literacy; desktop-first</li><li>Expects familiar SaaS patterns (tabs, tables)</li><li>Relies on status badges for quick scanning</li><li>Prone to confusion with dense information</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MANAGER -->
+    <div class="persona-wrap">
+      <div class="flow-label"><div class="flow-num">2</div>Manager Persona</div>
+      <div class="persona-card">
+        <div class="persona-head">
+          <div class="p-avatar">N</div>
+          <div>
+            <div class="p-name">Nitesh</div>
+            <div class="p-role">Team Manager &nbsp;·&nbsp; ADP-SecurAX Tech Solutions &nbsp;·&nbsp; Bengaluru Branch</div>
+            <div class="p-tags"><span class="p-tag">Team: 24 Members</span><span class="p-tag">Pending Approvals: 62</span><span class="p-tag">18 Available · 4 On Leave · 2 Absent</span><span class="p-tag">Access: Team Dashboard + Bulk Upload</span></div>
+          </div>
+        </div>
+        <div class="persona-body">
+          <div class="psec"><h4>Core Goals</h4><ul><li>Approve team leave, OT and shift requests</li><li>Monitor team attendance and late logins</li><li>Manage shift rosters and assignments</li><li>Track team timesheets in daily/weekly view</li><li>Bulk upload shift and leave data efficiently</li></ul></div>
+          <div class="psec"><h4>Pain Points (Legacy)</h4><ul><li>No centralized team overview dashboard</li><li>Leave approval scattered across menus</li><li>No bulk approval for multiple requests</li><li>Shift roster management was manual/error-prone</li><li>No team insights or trend visualizations</li></ul></div>
+          <div class="psec"><h4>Daily Tasks</h4><ul><li>Review and action 62 pending approvals</li><li>Monitor late logins and attendance alerts</li><li>Assign shifts and publish weekly roster</li><li>Review team timesheets (Daily + Weekly)</li><li>Bulk upload shift/leave/OT transaction data</li></ul></div>
+          <div class="psec"><h4>Key Screens</h4><ul><li>Team Dashboard (dual view + 4 stat cards)</li><li>Team Insights (Attendance/Leave/Punctuality/OT)</li><li>My Team + Attendance Alerts + Late Login</li><li>Shift Management (Assignment/Roster/Special)</li><li>Bulk Upload · Timesheet · Reports · Help Center</li></ul></div>
+          <div class="psec"><h4>Motivations</h4><ul><li>Fast, batch approval of pending requests</li><li>Team visibility without micromanagement</li><li>Clear shift roster that reduces confusion</li><li>Confidence in attendance data accuracy</li></ul></div>
+          <div class="psec"><h4>Unique Capabilities</h4><ul><li>Dual dashboard: Team View &amp; Personal View</li><li>Approve/reject on behalf of the team</li><li>Bulk upload with template download support</li><li>Team insights with Week/Month trend charts</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMIN -->
+    <div class="persona-wrap" style="margin-bottom:0">
+      <div class="flow-label"><div class="flow-num">3</div>Admin Persona</div>
+      <div class="persona-card">
+        <div class="persona-head">
+          <div class="p-avatar">RK</div>
+          <div>
+            <div class="p-name">Ritesh Kumar</div>
+            <div class="p-role">System Administrator &nbsp;·&nbsp; ADP-SecurAX Tech Solutions &nbsp;·&nbsp; Bengaluru Branch</div>
+            <div class="p-tags"><span class="p-tag">Total Workforce: 280</span><span class="p-tag">210 Active · 30 Inactive</span><span class="p-tag">Full System Access</span><span class="p-tag">Kiosk &amp; Policy Management</span><span class="p-tag">62 Pending Approvals</span></div>
+          </div>
+        </div>
+        <div class="persona-body">
+          <div class="psec"><h4>Core Goals</h4><ul><li>Monitor company-wide workforce health</li><li>Configure policies and compliance rules</li><li>Manage kiosk devices and geofences</li><li>Oversee system health and device status</li><li>Control affiliate settings and user access</li></ul></div>
+          <div class="psec"><h4>Pain Points (Legacy)</h4><ul><li>No centralized system health dashboard</li><li>Geofence &amp; device management was fragmented</li><li>Policy configuration required navigating 10+ screens</li><li>No workforce KPI view at a glance</li><li>Self-registered employee review was manual</li></ul></div>
+          <div class="psec"><h4>Daily Tasks</h4><ul><li>Review 280-person workforce status dashboard</li><li>Monitor system health — active devices, failures</li><li>Manage kiosk geofences and face app mapping</li><li>Review policy violations &amp; excess OT cases</li><li>Action pending approvals (Leave, OT, Reg)</li></ul></div>
+          <div class="psec"><h4>Key Screens</h4><ul><li>Admin Dashboard (KPI cards + Approvals hub)</li><li>Kiosk: Geofence Master, Map/Unmap, Self Reg</li><li>System Health + Policy &amp; Compliance panels</li><li>Timesheet Masters (Project/Activity/Client codes)</li><li>Reports · Bulk Upload · User Guide</li></ul></div>
+          <div class="psec"><h4>Unique Capabilities</h4><ul><li>System Health: device status, failed transactions</li><li>Policy &amp; Compliance: violations, OT, late marks</li><li>Configure Policies + Manage Devices quick actions</li><li>Operations: shift coverage, unassigned employees</li><li>Team Insights: Attendance, Leave, Exceptions tabs</li></ul></div>
+          <div class="psec"><h4>Workforce KPIs</h4><ul><li>Total Workforce: 280 (210 active, 30 inactive)</li><li>Today's Availability: 180 (140 duty, 24 WFH, 15 field)</li><li>On Leave: 32 (Sick, Casual, Planned)</li><li>Attendance Exceptions: 18 (Late, Missing, Early)</li><li>Shift Coverage: 92% · 14 unassigned employees</li></ul></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SCREENS ── -->
+<section id="screens" class="sec" style="background:var(--white);padding-top:0">
+  <div style="background:var(--white);padding:80px 48px 36px;border-bottom:1px solid var(--border)">
+    <div class="sec-inner">
+      <div class="lbl">Final Designs</div>
+      <h2 class="sec-title">High-Fidelity Screen Gallery</h2>
+      <p class="sec-desc">All screens designed in Figma using the ADP Waypoint Design System. Click any screen to view full size.</p>
+    </div>
+  </div>
+  <div class="sec-inner" style="padding-top:40px">
+    <div class="tab-bar">
+      <button class="stab active" onclick="switchTab('emp',this)">Employee — 18 Screens</button>
+      <button class="stab" onclick="switchTab('mgr',this)">Manager — 20 Screens</button>
+      <button class="stab" onclick="switchTab('adm',this)">Admin — 16 Screens</button>
+    </div>
+
+    <!-- EMPLOYEE TAB -->
+    <div id="tab-emp" class="screens-group on">
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">1</div>Dashboard &amp; Punch Flow</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.51.19 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.51.19 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Dashboard — Default State</h4><p>4 stat cards, Mini Calendar, Leave Summary donut, Quick Actions sidebar</p></div><span class="badge b-dash">Dashboard</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.51.30 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.51.30 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Dashboard — Punch Information Expanded</h4><p>Progressive disclosure: scheduled shift, expected hours, location, status</p></div><span class="badge b-dash">Dashboard</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.51.52 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.51.52 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Punch In — Confirmation Modal</h4><p>Auto-fills time, date, location. Optional notes (200-char). Cancel / Confirm</p></div><span class="badge b-modal">Modal</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.52.01 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.52.01 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Dashboard — After Punch In</h4><p>State-aware CTA shifts to "Punch Out" — entire page reflects updated session</p></div><span class="badge b-dash">Dashboard</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.52.43 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.52.43 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Dashboard — My Activity Feed</h4><p>Leave type breakdown bars, Holiday List, Activity feed with status tags</p></div><span class="badge b-dash">Dashboard</span></div></div>
+        </div>
+      </div>
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">2</div>Profile</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.53.07 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.53.07 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Profile — Personal Information</h4><p>4-col grid: gender, email, passport, visa, IDs, PF/UAN, mobile, emergency contact</p></div><span class="badge b-profile">Profile</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.53.15 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.53.15 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Profile — Official Information</h4><p>Employment record: ID, date of joining, affiliate, branch, department, reporting manager</p></div><span class="badge b-profile">Profile</span></div></div>
+        </div>
+      </div>
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">3</div>Absence Management</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.54.56 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.54.56 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Absence Requests — Leaves Tab</h4><p>5-tab interface: Leaves · Regularization · Special Request · Comp-off · Permission. Sortable table with status pills</p></div><span class="badge b-absence">Absence</span></div></div>
+        </div>
+      </div>
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">4</div>Time &amp; Attendance</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.55.30 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.55.30 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Attendance — Shift Change</h4><p>Contextual info banner + table tracking shift requests with reason and status lifecycle</p></div><span class="badge b-attend">Attendance</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.55.38 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.55.38 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Attendance — Shift Information</h4><p>Reference directory of all available shifts: name, affiliate, group, type, start/end times</p></div><span class="badge b-attend">Attendance</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.55.46 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.55.46 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Attendance — Approval</h4><p>Month/Year/Status filter reveals employee info and full attendance breakdown</p></div><span class="badge b-attend">Attendance</span></div></div>
+        </div>
+      </div>
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">5</div>Timesheet</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.56.00 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.56.00 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Timesheet — My Applications</h4><p>Daily/Weekly toggle. Empty state with illustration and "Add timesheet" CTA</p></div><span class="badge b-time">Timesheet</span></div></div>
+        </div>
+      </div>
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">6</div>Reports</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.56.14 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.56.14 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Reports — Module Hub</h4><p>4-tab structure: Absence · Attendance · Timesheet · Saved Reports with Select Report dropdown</p></div><span class="badge b-report">Reports</span></div></div>
+        </div>
+      </div>
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">7</div>Settings</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.56.33 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.56.33 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Settings — Change Password</h4><p>Inline rules panel provides contextual guidance without a separate help page</p></div><span class="badge b-settings">Settings</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.56.40 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.56.40 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Settings — Subscriptions</h4><p>Manage notification subscriptions with participant lists, type, Active/Inactive status</p></div><span class="badge b-settings">Settings</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.56.47 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.56.47 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Settings — Alarms</h4><p>Configure alarms linked to subscriptions — Punch In, Monthly Report alerts</p></div><span class="badge b-settings">Settings</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.57.00 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.57.00 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Settings — Default Preferences</h4><p>Nav defaults, grid view (Modern/Full Data), right sidebar visibility, widget config</p></div><span class="badge b-settings">Settings</span></div></div>
+        </div>
+      </div>
+      <div class="flow-sec" style="margin-bottom:0">
+        <div class="flow-lbl"><div class="fn">8</div>Full Calendar</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 2.57.26 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 2.57.26 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Full Calendar — Month View</h4><p>Monthly attendance with punch times per day. Colour-coded: Leave, Absent, Half Day, Miss Swipe. Month/Week/Day toggle</p></div><span class="badge b-cal">Calendar</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MANAGER TAB -->
+    <div id="tab-mgr" class="screens-group">
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">1</div>Dashboard &amp; Team Overview</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.40.05 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.40.05 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Manager Dashboard — Default</h4><p>Team Dashboard / My Dashboard toggle. 4 stat cards: My Team (24), Shift Status, Late Login (8), Attendance Alerts (5)</p></div><span class="badge b-dash">Dashboard</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.40.13 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.40.13 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Dashboard — Approvals Hub</h4><p>62 pending total. Leave (6), Regularization (3), Comp-off (12), Permission (12), OT (8), Shift Change (4), Timesheets (6+)</p></div><span class="badge b-dash">Dashboard</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.40.22 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.40.22 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Team Insights — Attendance Chart</h4><p>Week/Month bar chart with Peak (24), Lowest (16), Average (92%) stats. Interactive tooltip</p></div><span class="badge b-team">Team Insights</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.40.30 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.40.30 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Team Insights — Upcoming Leaves</h4><p>28 leave days in next 30 days. Table: Employee, Leave Type, Dates, Duration</p></div><span class="badge b-team">Team Insights</span></div></div>
+        </div>
+      </div>
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">2</div>Team Management &amp; Alerts</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.40.57 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.40.57 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>My Team</h4><p>24 employees: Employee ID, Name, Role, Status (Available/On Leave/Absent), Work Mode, Shift. Paginated 10/page</p></div><span class="badge b-team">Team</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.41.05 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.41.05 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Shift Status</h4><p>Current shift assignments (Assigned status) + Change Request table with reason column</p></div><span class="badge b-shift">Shift</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.41.13 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.41.13 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Late Login</h4><p>Employee Name, Shift Start, Punch In, Late By, Occurrence (Last 7 days). Warning icons for repeat offenders</p></div><span class="badge b-team">Alerts</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.41.25 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.41.25 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Team Attendance Alerts</h4><p>Issue types: Regularization, Missing, Early Exit. Night shift contextual note</p></div><span class="badge b-team">Alerts</span></div></div>
+        </div>
+      </div>
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">3</div>Requests</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.42.00 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.42.00 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Requests — Team Overtime</h4><p>Team Requests / My Requests toggle. Overtime tab: Employee ID, Date, Type, Total OT, Reason, Status</p></div><span class="badge b-attend">Requests</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.42.11 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.42.11 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Requests — My Overtime History</h4><p>Personal OT records: Date, Type, Total OT, Reason, Status (Approved, Rejected, Submitted, Withdrawn)</p></div><span class="badge b-attend">Requests</span></div></div>
+        </div>
+      </div>
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">4</div>Shift Management</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.42.35 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.42.35 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Shift Management — Assignment</h4><p>Multi-select employees, assign shift. Table: Employee ID, Name, Affiliate, Shift Name, Start/End Date</p></div><span class="badge b-shift">Shift</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.42.42 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.42.42 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Shift Management — Shift Roster</h4><p>Employee/Group toggle, Year/Month filter. Weekly grid with per-day shift dropdowns. Publish roster + Export</p></div><span class="badge b-shift">Shift</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.42.59 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.42.59 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Shift Management — Special Shift</h4><p>Create special shifts with affiliate, start/end dates and time. General, Evening, Night shifts listed</p></div><span class="badge b-shift">Shift</span></div></div>
+        </div>
+      </div>
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">5</div>Timesheet</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.43.34 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.43.34 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Timesheet — Team Daily View</h4><p>Team Requests selected. Columns: Employee ID, Name, Date, Client, Logged Hours, Shift Hours, Status</p></div><span class="badge b-time">Timesheet</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.43.42 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.43.42 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Timesheet — Team Weekly View</h4><p>Weekly view: Start Date, End Date, Logged Hours, Shift Hours, Status. Overtime visible at a glance</p></div><span class="badge b-time">Timesheet</span></div></div>
+        </div>
+      </div>
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">6</div>Bulk Upload</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.44.02 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.44.02 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Bulk Upload — History</h4><p>Upload log: Affiliate, Type, Date, Total Records. Success/Failed bar indicators per row</p></div><span class="badge b-bulk">Bulk Upload</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.44.09 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.44.09 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Bulk Upload — Modal</h4><p>Module dropdown + Download template. Drag-and-drop file upload zone. Submit/Cancel actions</p></div><span class="badge b-modal">Modal</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.44.18 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.44.18 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Bulk Upload — Module Selection</h4><p>7 upload types: Shift Forever, Shift Roster, Employee Leave Credit, Regularization, OT Transaction, Permission</p></div><span class="badge b-bulk">Bulk Upload</span></div></div>
+        </div>
+      </div>
+      <div class="flow-sec" style="margin-bottom:0">
+        <div class="flow-lbl"><div class="fn">7</div>Help Center</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.44.39 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.44.39 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Help Center — User Guide</h4><p>All Users/Employee/Manager filter tabs. Leave Accrual article with Contents sidebar</p></div><span class="badge b-help">Help</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 3.45.02 PM.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 3.45.02 PM.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Help Center — FAQ</h4><p>Employee/Manager tabs, searchable FAQs by category. Accordion expand/collapse. Categories sidebar</p></div><span class="badge b-help">Help</span></div></div>
+        </div>
+      </div>
+    </div><!-- /tab-mgr -->
+
+    <!-- ADMIN TAB -->
+    <div id="tab-adm" class="screens-group">
+
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">1</div>Admin Dashboard</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 4.02.18 PM-0056ade0.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 4.02.18 PM-0056ade0.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Admin Dashboard — Overview &amp; Approvals</h4><p>Admin/My Dashboard toggle. KPI cards: Total Workforce (240), Shift Status (14), Late Login (18), Attendance Alerts (18). Approvals hub (62 pending): Leave, Regularization, Special Request, Comp-off, Permission, OT, Shift Change. Quick Actions sidebar</p></div><span class="badge b-admin">Dashboard</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 4.02.27 PM-8a69e7a0.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 4.02.27 PM-8a69e7a0.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Admin Dashboard — System Health &amp; Insights</h4><p>System Health: Active Devices (3/5), Devices with Issues (7), Failed Transactions (20). Policy &amp; Compliance: Policy Violations (9), Excess OT (6), Repeated Late Marks (11). Operations panel + Team Insights chart (Attendance/Leave/Overtime)</p></div><span class="badge b-admin">Dashboard</span></div></div>
+        </div>
+      </div>
+
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">2</div>Absence Management — Masters</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 4.02.52 PM-7cbba4ff.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 4.02.52 PM-7cbba4ff.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Masters — Leave Types</h4><p>3 tabs: Leave Types · Special Request Types · Permission Types. Leave list: Annual Leave (AL), Sick Leave (SL), Maternity (ML), Paternity (PL), Compassionate (CL), Study (STL), Unpaid (UL), Public Holiday (PH), Jury Duty (JD), Bereavement (BL). Add leave type + Export</p></div><span class="badge b-absence">Absence</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 4.03.00 PM-613eabcf.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 4.03.00 PM-613eabcf.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Masters — Add Leave Type Modal</h4><p>Required fields: Affiliate (dropdown), Leave Name, Abbreviation. Optional: Group Name, Primary Leave Type checkbox. Cancel / Add actions</p></div><span class="badge b-modal">Modal</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 4.03.14 PM-e6091103.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 4.03.14 PM-e6091103.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Masters — View Leave Type Modal</h4><p>Read-only detail view: Affiliate (ADP-SecurAX Tech Solutions), Leave Name (Annual Leave), Abbreviation (AL), Group Name (Full Time). Row actions menu with View / Edit options visible</p></div><span class="badge b-modal">Modal</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 4.03.22 PM-57b48c95.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 4.03.22 PM-57b48c95.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Masters — Edit Leave Type Modal</h4><p>Pre-filled edit form: Affiliate dropdown populated, Leave Name (Annual Leave), Abbreviation (AL), Group Name (Full Time). Primary Leave Type checkbox + Cancel / Update actions</p></div><span class="badge b-modal">Modal</span></div></div>
+        </div>
+      </div>
+
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">3</div>Time &amp; Attendance — Masters</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 4.03.50 PM-9179709a.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 4.03.50 PM-9179709a.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Masters — Employees Tab</h4><p>5 tabs: Employees · Structure · Categories · Holidays · Custom. View by: All Employees / Change Manager / Employee Groups. Table: Employee ID, Name, Affiliate, Branch, Email, Status (Active/Inactive), Designation. Add employee + Export</p></div><span class="badge b-attend">T&amp;A Masters</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 4.04.04 PM-c81ff99b.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 4.04.04 PM-c81ff99b.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Masters — Categories Tab (Affiliates)</h4><p>View by: Employment Types / Manage Tags / Affiliates. Affiliate list: Shree Enterprises (Mumbai), Sunrise Solutions (Bengaluru), Green Leaf Pvt Ltd (Chennai), Apex Associates (Hyderabad) + 5 more. Add affiliate + Export</p></div><span class="badge b-attend">T&amp;A Masters</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 4.04.12 PM-01a6f6f5.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 4.04.12 PM-01a6f6f5.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Masters — Add Affiliate Modal</h4><p>Basic Information: Name*, Address*, Phone Number* (IN flag), State, Country*. Financial Year Details: Month* (calendar), Day* (dropdown). Settings: Enable Custom Master1 checkbox, Is Mandatory?, Master Screen*. Cancel / Add</p></div><span class="badge b-modal">Modal</span></div></div>
+        </div>
+      </div>
+
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">4</div>Time &amp; Attendance — Operations</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 4.04.27 PM-73725f29.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 4.04.27 PM-73725f29.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Operations — Delegate Manager</h4><p>4 tabs: Late Early Exceptions · Enable Punch · Delegate Manager · Messages. Delegation table: Delegated By, Delegated To, From Date, To Date. 10 active delegations. Add delegation + Search</p></div><span class="badge b-attend">Operations</span></div></div>
+        </div>
+      </div>
+
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">5</div>Timesheet Administration</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 4.04.58 PM-bf964dde.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 4.04.58 PM-bf964dde.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Timesheet Masters — Project Codes</h4><p>861 records. Columns: Name, Affiliate, Project Code, Activity Code, Client Code — all with Active/Inactive status badges. Add new + Search Code + Export controls. Paginated 10/page</p></div><span class="badge b-time">Timesheet</span></div></div>
+        </div>
+      </div>
+
+      <div class="flow-sec">
+        <div class="flow-lbl"><div class="fn">6</div>Kiosk Management</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 4.05.20 PM-bc6b72ca.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 4.05.20 PM-bc6b72ca.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Geofence Master — Location List</h4><p>Geofences: Mumbai Office (500m), Bangalore Hub (300m), Chennai Plant (400m), Hyderabad Center (350m), Pune Tech Park (600m) + more. Columns: Name, Affiliate, Address, Latitude, Longitude, Radius. Add face app geofence + Export</p></div><span class="badge b-kiosk">Kiosk</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 5.02.56 PM-dbbd467a.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 5.02.56 PM-dbbd467a.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Geofence Master — Full Pagination View</h4><p>Same geofence list at full viewport width — sortable columns visible, 1 to 10 of 861 records. Row-level actions menu. Cleaner column layout without scrolling</p></div><span class="badge b-kiosk">Kiosk</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 5.03.41 PM-6e0dc581.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 5.03.41 PM-6e0dc581.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Map / Unmap — Face App Mapping</h4><p>Links FaceTrack / FaceSecure / FaceGuard devices to geofences and employees. All 10 entries Active. Columns: Face App Name, Affiliate, Face App Geofence Name, Employee Name. Map employee CTA + Export</p></div><span class="badge b-kiosk">Kiosk</span></div></div>
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 5.04.21 PM-44fcf91a.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 5.04.21 PM-44fcf91a.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>Self Registered Employee — Filter &amp; Report</h4><p>Filter form (required fields*): Affiliate, Branch, Start/End Date (YYYY-MM-DD), Status, Employee. Results table: Employee Name, Photo, Face App, Location, Actions. View report CTA</p></div><span class="badge b-kiosk">Kiosk</span></div></div>
+        </div>
+      </div>
+
+      <div class="flow-sec" style="margin-bottom:0">
+        <div class="flow-lbl"><div class="fn">7</div>Help Center</div>
+        <div class="screens-grid">
+          <div class="s-card" onclick="lb('uploads/Screenshot 2026-05-26 at 5.04.43 PM-f18c1581.png')"><div class="s-img"><img src="uploads/Screenshot 2026-05-26 at 5.04.43 PM-f18c1581.png" alt="" loading="lazy"></div><div class="s-meta"><div class="s-info"><h4>User Guide — Leave Accrual Article</h4><p>Role-filtered tabs: All Users / Employee / Manager / HR / Admin. Leave Accrual article with role badges. Contents sidebar: Leave Accrual, Leave Credit, Leave Credit Management, Attendance Regularization, Comp-off, OT Management, Special Leave Request</p></div><span class="badge b-help">Help</span></div></div>
+        </div>
+      </div>
+
+    </div><!-- /tab-adm -->
+
+  </div>
+</section>
+
+<!-- ── DESIGN DECISIONS ── -->
+<section id="decisions" class="sec" style="background:var(--bg)">
+  <div class="sec-inner">
+    <div class="lbl">Design Rationale</div>
+    <h2 class="sec-title">Key Decisions And Why They Were Made</h2>
+    <p class="sec-desc">Every pattern was deliberate. These are the most impactful UX decisions — and the reasoning behind each.</p>
+    <div class="dec-grid">
+      <div class="dec-card"><div class="dec-n">01</div><h3>Dashboard-First Architecture</h3><p>The most frequent action — Punch In/Out — was elevated to a persistent CTA on every screen. The dashboard surfaces today's work hours, shift, leave balance, and requests at a single glance. Daily task depth reduced from 4+ clicks to 1.</p><div class="dec-pill">Reduced daily task friction</div></div>
+      <div class="dec-card"><div class="dec-n">02</div><h3>Dual Dashboard for Managers</h3><p>Managers need both a team view and personal view. Rather than separate pages, a prominent toggle card switches between "Team Dashboard" (approval hub + team stats) and "My Dashboard" (personal tasks). One URL, two contexts — no navigation debt.</p><div class="dec-pill">Team View + Personal View in one</div></div>
+      <div class="dec-card"><div class="dec-n">03</div><h3>Progressive Disclosure for Punch</h3><p>Punch information is surfaced inline on the dashboard in an expandable section. A confirmation modal auto-fills time, date, and location — only notes require input. This reduces errors and cognitive load significantly.</p><div class="dec-pill">Auto-populated confirmation modal</div></div>
+      <div class="dec-card"><div class="dec-n">04</div><h3>Semantic Status Hierarchy</h3><p>All statuses — Approved, Rejected, Pending, Submitted, Withdrawn, Draft — use a consistent colour-coded pill system applied uniformly across Absence, Attendance, Requests, Subscriptions, and Bulk Upload tables.</p><div class="dec-pill">Consistent across 8+ modules</div></div>
+      <div class="dec-card"><div class="dec-n">05</div><h3>Tabs to Manage Complexity</h3><p>Absence Management has 5 request types; Settings has 4 areas; Shift Management has 4 sub-views. Tabs within pages reduce the sidebar from 20+ items to 5 top-level nodes — a 75% reduction in navigation depth.</p><div class="dec-pill">Navigation depth reduced ~75%</div></div>
+      <div class="dec-card"><div class="dec-n">06</div><h3>Team Insights with Real Data</h3><p>Managers needed trend visibility without exporting reports. The Team Insights section provides Attendance, Leave, Punctuality, and Overtime charts (Week/Month toggle) with Peak/Lowest/Average KPIs — making data-driven team management possible inline.</p><div class="dec-pill">Attendance, Leave, Punctuality, OT trends</div></div>
+      <div class="dec-card"><div class="dec-n">07</div><h3>Admin System Health Panel</h3><p>Admins needed a real-time view of device and system status without a separate IT dashboard. The System Health panel surfaces Active Devices (3/5), Devices with Issues (7), and Failed Transactions (20) — plus a Policy &amp; Compliance panel for violations, OT, and late marks.</p><div class="dec-pill">System Health + Policy Compliance</div></div>
+      <div class="dec-card"><div class="dec-n">08</div><h3>In-Product Help Center</h3><p>Rather than linking to external documentation, a Help Center module lives within the product with User Guide and FAQ sections, filterable by role (All / Employee / Manager / HR / Admin). A sticky Contents sidebar and category navigation enable fast self-service support.</p><div class="dec-pill">Role-filtered in-product documentation</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COLLABORATORS ── -->
+<section id="team" class="sec" style="background:var(--white)">
+  <div class="sec-inner">
+    <div class="lbl">Project Team</div>
+    <h2 class="sec-title">Built in Collaboration With</h2>
+    <p class="sec-desc">This redesign was a cross-functional effort. Each collaborator contributed at a critical phase — from shaping requirements to validating performance at scale.</p>
+    <div class="collab-grid">
+      <div class="collab-card"><div class="collab-icon">📋</div><div class="collab-role">Product Manager</div><div class="collab-contrib">Defined product vision, sprint priorities, and feature roadmap. Ensured design decisions aligned with business goals and client commitments.</div><div class="collab-tag">Requirements &amp; Roadmap</div></div>
+      <div class="collab-card"><div class="collab-icon">🎨</div><div class="collab-role">UX Manager</div><div class="collab-contrib">Provided strategic UX direction, conducted design quality reviews, and guided adherence to ADP's Waypoint Design System standards throughout.</div><div class="collab-tag">Design Reviews &amp; Direction</div></div>
+      <div class="collab-card"><div class="collab-icon">📊</div><div class="collab-role">Business Analyst</div><div class="collab-contrib">Documented functional requirements, clarified complex business rules (leave policies, shift logic), and bridged the gap between stakeholder needs and design decisions.</div><div class="collab-tag">Requirements &amp; Business Rules</div></div>
+      <div class="collab-card"><div class="collab-icon">🛠</div><div class="collab-role">Implementation &amp; Support</div><div class="collab-contrib">Provided real-world client feedback from live deployments — surfacing edge cases, localization gaps, and workflow issues that research alone wouldn't have uncovered.</div><div class="collab-tag">Client Feedback &amp; Edge Cases</div></div>
+      <div class="collab-card"><div class="collab-icon">💻</div><div class="collab-role">Engineering Team</div><div class="collab-contrib">Validated technical feasibility of interaction patterns, reviewed component specifications, and participated in dev handoff sessions to ensure accurate implementation.</div><div class="collab-tag">Feasibility &amp; Dev Handoff</div></div>
+      <div class="collab-card"><div class="collab-icon">🤝</div><div class="collab-role">Stakeholders</div><div class="collab-contrib">Attended milestone product demos and provided business alignment feedback at key review gates — ensuring the redesign met organizational and client expectations.</div><div class="collab-tag">Product Demos &amp; Alignment</div></div>
+      <div class="collab-card"><div class="collab-icon">⚡</div><div class="collab-role">Solution Architect</div><div class="collab-contrib">Defined performance requirements and system scalability constraints that shaped data loading patterns, pagination decisions, and the bulk upload architecture.</div><div class="collab-tag">Performance &amp; Scalability</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── OUTCOMES ── -->
+<section id="outcomes" class="sec" style="background:var(--bg)">
+  <div class="sec-inner">
+    <div class="lbl">Results &amp; Reflection</div>
+    <h2 class="sec-title">What This Redesign Delivered</h2>
+    <p class="sec-desc">From a dense legacy product to a clean, role-aware enterprise application — a ground-up redesign covering the full breadth of ADP's time and attendance platform.</p>
+    <div class="out-grid">
+      <div class="out-card"><div class="out-n">17</div><div class="out-l">User pain points uncovered &amp; directly addressed by the redesign</div></div>
+      <div class="out-card"><div class="out-n">20</div><div class="out-l">Research participants across 4 roles in moderated 45-min sessions</div></div>
+      <div class="out-card"><div class="out-n">45+</div><div class="out-l">Hi-fi screens across Employee, Manager &amp; Admin personas in Figma</div></div>
+      <div class="out-card"><div class="out-n">7</div><div class="out-l">Cross-functional collaborators contributing across the full 5D process</div></div>
+    </div>
+    <div class="learnings">
+      <div class="learn"><h4>Enterprise UX Demands Clarity Over Cleverness</h4><p>Enterprise products serve users across every technical comfort level. Good design here means clear hierarchy, forgiving flows, and always-visible status. Every pattern was tested against: "Would a first-day employee understand this?"</p></div>
+      <div class="learn"><h4>Design Systems Accelerate Quality</h4><p>Using Waypoint from day one meant focusing on interaction and IA decisions rather than micro-visual ones. Every component already solved accessibility, spacing, and responsiveness — freeing me to focus on the problems that actually mattered.</p></div>
+      <div class="learn"><h4>Multiple Personas Sharpen Decisions</h4><p>Having three distinct personas forced concrete trade-offs: what does the employee need here vs. the admin? These tensions surface better decisions than designing for a generic "user" — and the personas evolved throughout the process.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="foot-name">ADP SecurTime — UX Case Study</div>
+  <div class="foot-designer">Bharath Hegde</div>
+  <div class="foot-sub">Lead UX Designer &nbsp;·&nbsp; ADP &nbsp;·&nbsp; Waypoint Design System &nbsp;·&nbsp; 2024–2025</div>
+</footer>
+
+<!-- ── LIGHTBOX ── -->
+<div class="lb" id="lb" onclick="closeLb()">
+  <button class="lb-close" onclick="closeLb()">✕</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.screens-group').forEach(g => g.classList.remove('on'));
+  var g = document.getElementById('tab-' + id);
+  if (g) g.classList.add('on');
+}
+function lb(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() {
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLb(); });
+
+window.addEventListener('scroll', function() {
+  var topBtn = document.getElementById('scrollToTopBtn');
+  if (!topBtn) return;
+  var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+  if (scrollTop > 400) {
+    topBtn.style.opacity = '1';
+    topBtn.style.transform = 'translateY(0)';
+    topBtn.style.pointerEvents = 'auto';
+  } else {
+    topBtn.style.opacity = '0';
+    topBtn.style.transform = 'translateY(10px)';
+    topBtn.style.pointerEvents = 'none';
+  }
+});
+</script>
+
+<!-- ── SCROLL TO TOP ── -->
+<button id="scrollToTopBtn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" style="position: fixed; bottom: 32px; right: 32px; width: 44px; height: 44px; border-radius: 50%; background: #ffffff; color: #CC0000; border: 1px solid #E0E0E0; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 999; opacity: 0; pointer-events: none; transform: translateY(10px); transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.15); font-size: 16px;">
+  ▲
+</button>
+</body>
+</html>
+
+<style id="__om-edit-overrides">
+.hero-lead >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) { color: rgb(255, 255, 255) !important }
+</style>

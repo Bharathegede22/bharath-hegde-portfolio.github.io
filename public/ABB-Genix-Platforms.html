@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ABB Genix Platforms · Bharath Hegde</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ── CSS Variables — Dark (default) ── */
+  :root {
+    --bg: #0A0A0F; --bg2: #0D0D18;
+    --text: #fff; --text-sec: rgba(255,255,255,0.6); --text-ter: rgba(255,255,255,0.4);
+    --text-muted: rgba(255,255,255,0.25); --text-faint: rgba(255,255,255,0.15);
+    --border: rgba(255,255,255,0.07); --border-sm: rgba(255,255,255,0.05);
+    --border-med: rgba(255,255,255,0.1); --border-strong: rgba(255,255,255,0.12);
+    --surface: rgba(255,255,255,0.03); --surface2: rgba(255,255,255,0.02);
+    --surface3: rgba(255,255,255,0.04); --surface4: rgba(255,255,255,0.06);
+    --nav-bg: rgba(10,10,15,0.9); --nav-text: rgba(255,255,255,0.45);
+    --nav-title: rgba(255,255,255,0.75); --nav-link: rgba(255,255,255,0.35);
+    --nav-link-hover: rgba(255,255,255,0.85); --nav-dot: rgba(255,255,255,0.15);
+    --nav-cta-bg: #fff; --nav-cta-text: #0A0A0F;
+    --toggle-bg: rgba(255,255,255,0.08); --toggle-color: #FFD700;
+    --card-hover-bg: rgba(255,255,255,0.02);
+  }
+
+  /* ── CSS Variables — Light ── */
+  html.light {
+    --bg: #FFFFFF; --bg2: #F4F4F9;
+    --text: #0A0A0F; --text-sec: #5A5A72; --text-ter: #86868B;
+    --text-muted: #9E9EAD; --text-faint: rgba(0,0,0,0.2);
+    --border: rgba(0,0,0,0.08); --border-sm: rgba(0,0,0,0.05);
+    --border-med: rgba(0,0,0,0.1); --border-strong: rgba(0,0,0,0.14);
+    --surface: rgba(0,0,0,0.02); --surface2: rgba(0,0,0,0.015);
+    --surface3: rgba(0,0,0,0.03); --surface4: rgba(0,0,0,0.04);
+    --nav-bg: rgba(255,255,255,0.93); --nav-text: #6B6B80;
+    --nav-title: #0A0A0F; --nav-link: #86868B;
+    --nav-link-hover: #0A0A0F; --nav-dot: rgba(0,0,0,0.12);
+    --nav-cta-bg: #0A0A0F; --nav-cta-text: #fff;
+    --toggle-bg: rgba(0,0,0,0.06); --toggle-color: #5A5A72;
+    --card-hover-bg: rgba(0,0,0,0.02);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; transition: background 0.3s, color 0.3s; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg); color: var(--text);
+    -webkit-font-smoothing: antialiased; line-height: 1.6;
+    transition: background 0.3s, color 0.3s;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ── Unified Nav Header ── */
+  .portfolio-header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+    background: var(--nav-bg); backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 64px;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .header-logo {
+    display: flex; align-items: center; gap: 10px; text-decoration: none;
+    font-size: 15px; font-weight: 800; letter-spacing: 1.5px; color: var(--text);
+  }
+  .header-avatar-wrap {
+    width: 32px; height: 32px; border-radius: 50%; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .header-avatar {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .header-right {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .header-cta {
+    font-size: 12px; font-weight: 700; color: var(--nav-cta-text); background: var(--nav-cta-bg);
+    padding: 7px 16px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.06em; transition: opacity 0.2s;
+    text-decoration: none;
+  }
+  .header-cta:hover { opacity: 0.85; }
+
+  /* ── Sub-header ── */
+  .sub-header {
+    position: fixed; top: 64px; left: 0; right: 0; z-index: 290;
+    height: 48px; background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; transition: all 0.3s;
+  }
+  .sub-header-inner {
+    width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .breadcrumbs {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .breadcrumbs a {
+    color: var(--text-sec); text-decoration: none; transition: color 0.2s;
+  }
+  .breadcrumbs a:hover {
+    color: var(--text);
+  }
+  .breadcrumbs .sep {
+    color: var(--text-muted);
+  }
+  .breadcrumbs .current {
+    color: #FF000F; /* Red branding color */
+    font-weight: 700;
+  }
+
+  .theme-toggle {
+    width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--toggle-bg); color: var(--toggle-color);
+    font-size: 16px; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; flex-shrink: 0;
+  }
+  .theme-toggle:hover { opacity: 0.75; }
+
+  /* ── Layout ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+  /* ── Hero ── */
+  .hero { position: relative; overflow: hidden; background: #0D0D18; border-bottom: 1px solid var(--border-sm); }
+  .hero-gradient { position: absolute; inset: 0; background: linear-gradient(to top, #0A0A0F 30%, rgba(10,10,15,0.7) 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 140px 40px 60px 40px; max-width: 1100px; margin: 0 auto; width: 100%; }
+  .hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+  .hero-eyebrow span { color: #FF000F; }
+  .hero-h1 { font-size: clamp(38px, 5vw, 64px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; color: #fff; margin-bottom: 20px; text-transform: uppercase; }
+  .hero-sub { font-size: 16px; color: rgba(255,255,255,0.5); max-width: 60ch; line-height: 1.6; }
+
+  /* ── Project Showcase Section ── */
+  .section { padding: 64px 0; }
+  .section-title { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--text-sec); text-transform: uppercase; margin-bottom: 36px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+
+  /* ── Project Grid ── */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    background: var(--card-hover-bg);
+    border-color: var(--border-strong);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  }
+  .card-img-wrap {
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-sm);
+    background: #000;
+  }
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .project-card:hover .card-img {
+    transform: scale(1.02);
+  }
+  .card-body {
+    padding: 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .card-header-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .card-tag {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #FF000F; /* Red accent */
+  }
+  .card-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .card-desc {
+    font-size: 14px;
+    color: var(--text-sec);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--border-sm);
+    padding-top: 16px;
+  }
+  .card-metadata {
+    font-size: 11px;
+    color: var(--text-ter);
+    font-weight: 500;
+  }
+  
+  /* ── view case study button ── */
+  .case-study-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #10b981; /* Premium Green */
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    background: rgba(16, 185, 129, 0.05);
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .case-study-btn:hover {
+    background: rgba(16, 185, 129, 0.1);
+    color: #059669;
+    border-color: rgba(16, 185, 129, 0.4);
+  }
+  .btn-icon {
+    transition: transform 0.2s;
+  }
+  .case-study-btn:hover .btn-icon {
+    transform: translate(2px, -2px);
+  }
+
+  /* ── Footer ── */
+  footer { background: #0A0A0F; padding: 44px 48px; text-align: center; border-top: 1px solid var(--border); }
+  .foot-name { font-size: 22px; color: #fff; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; }
+  .foot-designer { font-size: 14px; color: rgba(255,255,255,.75); font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px; }
+  .foot-sub { font-size: 12px; color: rgba(255,255,255,.42); text-transform: uppercase; letter-spacing: .8px; }
+
+  @media (max-width: 768px) {
+    .portfolio-header { padding: 0 20px; }
+    .sub-header-inner { padding: 0 20px; }
+    .container { padding: 0 20px; }
+    .hero-content { padding: 100px 20px 40px 20px; }
+    .section { padding: 32px 0; }
+    .project-grid { grid-template-columns: 1fr; gap: 24px; }
+  }
+</style>
+</head>
+<body>
+<!-- Apply saved theme instantly — no flash -->
+<script>
+  (function(){
+    var t = localStorage.getItem('theme') || localStorage.getItem('bh-theme') || 'dark';
+    if (t === 'light') {
+      document.documentElement.classList.add('light');
+    } else {
+      document.documentElement.classList.remove('light');
+    }
+  })();
+</script>
+
+<!-- Main Header -->
+<header class="portfolio-header">
+  <a href="/" class="header-logo">
+    <div class="header-avatar-wrap">
+      <img src="/uploads/profile.png" alt="Bharath Hegde" class="header-avatar">
+    </div>
+    <span>BHARATH HEGDE</span>
+  </a>
+  <div class="header-right">
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme">☀</button>
+    <a href="https://www.linkedin.com/in/bharathegde" target="_blank" class="header-cta">Hire Me</a>
+  </div>
+</header>
+
+<!-- Sub-header -->
+<div class="sub-header">
+  <div class="sub-header-inner">
+    <nav class="breadcrumbs">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <span class="current">ABB Genix Platforms</span>
+    </nav>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span>ABB Ability™ Genix</span> · Industrial IoT &amp; AI Platform
+    </div>
+    <h1 class="hero-h1">ABB Genix Platforms</h1>
+    <p class="hero-sub">Led user experience strategy and product redesigns across Genix industrial data management and analytics suites.</p>
+  </div>
+</section>
+
+<!-- Projects Showcase -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Selected Platform Projects</h2>
+    <div class="project-grid">
+      <!-- Project 1: OLM 2.0 -->
+      <div class="project-card">
+        <div class="card-img-wrap">
+          <img src="/uploads/olm-cover.jpeg" alt="Opportunity Loss Manager (OLM 2.0)" class="card-img" />
+        </div>
+        <div class="card-body">
+          <div class="card-header-info">
+            <span class="card-tag">Industrial IoT &amp; Redesign</span>
+            <h3 class="card-title">Opportunity Loss Manager</h3>
+            <p class="card-desc">Redesigning the enterprise loss-tracking tool (yield, energy, catalyst, downtime) used by process engineers to evaluate continuous production metrics.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-metadata">Jun 2022 - Jan 2023</span>
+            <a href="/OLM-Case-Study.html" class="case-study-btn">
+              <span>View OLM 2.0 Case Study</span>
+              <span class="btn-icon">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2: Model Fabric 2.0 -->
+      <div class="project-card">
+        <div class="card-img-wrap">
+          <img src="/uploads/model_fabric_cover.png" alt="Model Fabric 2.0" class="card-img" />
+        </div>
+        <div class="card-body">
+          <div class="card-header-info">
+            <span class="card-tag">Industrial AI &amp; Analytics</span>
+            <h3 class="card-title">Model Fabric 2.0</h3>
+            <p class="card-desc">Designing data exploration, visualization interfaces, and machine learning model training configurations for citizen data scientists within Genix Platform.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-metadata">Feb 2023 - Mar 2023</span>
+            <a href="/Model-Fabric-Case-Study.html" class="case-study-btn">
+              <span>View Model Fabric Case Study</span>
+              <span class="btn-icon">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="foot-name">BHARATH HEGDE</div>
+  <div class="foot-designer">Principal UX Analyst</div>
+  <div class="foot-sub">ABB Ability™ Genix Platforms © 2026</div>
+</footer>
+
+<script>
+  // ── Theme toggle ──
+  const btn = document.getElementById('themeToggle');
+
+  function applyTheme(t) {
+    if (t === 'light') {
+      document.documentElement.classList.add('light');
+      btn.textContent = '☽';
+      btn.title = 'Switch to dark mode';
+    } else {
+      document.documentElement.classList.remove('light');
+      btn.textContent = '☀';
+      btn.title = 'Switch to light mode';
+    }
+    localStorage.setItem('theme', t);
+    localStorage.setItem('bh-theme', t);
+  }
+
+  // Set button icon to match current state (class already applied at top)
+  applyTheme(localStorage.getItem('theme') || localStorage.getItem('bh-theme') || 'dark');
+
+  btn.addEventListener('click', () => {
+    const isDark = !document.documentElement.classList.contains('light');
+    applyTheme(isDark ? 'light' : 'dark');
+  });
+</script>
+</body>
+</html>

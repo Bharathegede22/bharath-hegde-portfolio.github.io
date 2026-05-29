@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OLM 2.0 · Case Study · Bharath Hegde</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ── CSS Variables — Dark (default) ── */
+  :root {
+    --bg: #0A0A0F; --bg2: #0D0D18;
+    --text: #fff; --text-sec: rgba(255,255,255,0.6); --text-ter: rgba(255,255,255,0.4);
+    --text-muted: rgba(255,255,255,0.25); --text-faint: rgba(255,255,255,0.15);
+    --border: rgba(255,255,255,0.07); --border-sm: rgba(255,255,255,0.05);
+    --border-med: rgba(255,255,255,0.1); --border-strong: rgba(255,255,255,0.12);
+    --surface: rgba(255,255,255,0.03); --surface2: rgba(255,255,255,0.02);
+    --surface3: rgba(255,255,255,0.04); --surface4: rgba(255,255,255,0.06);
+    --nav-bg: rgba(10,10,15,0.9); --nav-text: rgba(255,255,255,0.45);
+    --nav-title: rgba(255,255,255,0.75); --nav-link: rgba(255,255,255,0.35);
+    --nav-link-hover: rgba(255,255,255,0.85); --nav-dot: rgba(255,255,255,0.15);
+    --nav-cta-bg: #fff; --nav-cta-text: #0A0A0F;
+    --toggle-bg: rgba(255,255,255,0.08); --toggle-color: #FFD700;
+    --tl-accent-bg: #fff; --tl-accent-text: #0A0A0F; --tl-accent-label: rgba(0,0,0,0.4);
+    --ia-root-bg: #fff; --ia-root-text: #0A0A0F;
+    --ia-connector: rgba(255,255,255,0.15);
+    --contact-primary-bg: #fff; --contact-primary-text: #0A0A0F;
+  }
+
+  /* ── CSS Variables — Light ── */
+  html.light {
+    --bg: #FFFFFF; --bg2: #F4F4F9;
+    --text: #0A0A0F; --text-sec: #5A5A72; --text-ter: #86868B;
+    --text-muted: #9E9EAD; --text-faint: rgba(0,0,0,0.2);
+    --border: rgba(0,0,0,0.08); --border-sm: rgba(0,0,0,0.05);
+    --border-med: rgba(0,0,0,0.1); --border-strong: rgba(0,0,0,0.14);
+    --surface: rgba(0,0,0,0.02); --surface2: rgba(0,0,0,0.015);
+    --surface3: rgba(0,0,0,0.03); --surface4: rgba(0,0,0,0.04);
+    --nav-bg: rgba(255,255,255,0.93); --nav-text: #6B6B80;
+    --nav-title: #0A0A0F; --nav-link: #86868B;
+    --nav-link-hover: #0A0A0F; --nav-dot: rgba(0,0,0,0.12);
+    --nav-cta-bg: #0A0A0F; --nav-cta-text: #fff;
+    --toggle-bg: rgba(0,0,0,0.06); --toggle-color: #5A5A72;
+    --tl-accent-bg: #0A0A0F; --tl-accent-text: #fff; --tl-accent-label: rgba(255,255,255,0.5);
+    --ia-root-bg: #0A0A0F; --ia-root-text: #fff;
+    --ia-connector: rgba(0,0,0,0.15);
+    --contact-primary-bg: #0A0A0F; --contact-primary-text: #fff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; transition: background 0.3s, color 0.3s; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg); color: var(--text);
+    -webkit-font-smoothing: antialiased; line-height: 1.6;
+    transition: background 0.3s, color 0.3s;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ── Unified Nav Header ── */
+  .portfolio-header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+    background: var(--nav-bg); backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 64px;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .header-logo {
+    display: flex; align-items: center; gap: 10px; text-decoration: none;
+    font-size: 15px; font-weight: 800; letter-spacing: 1.5px; color: var(--text);
+  }
+  .header-avatar-wrap {
+    width: 32px; height: 32px; border-radius: 50%; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .header-avatar {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .header-right {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .header-cta {
+    font-size: 12px; font-weight: 700; color: var(--nav-cta-text); background: var(--nav-cta-bg);
+    padding: 7px 16px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.06em; transition: opacity 0.2s;
+    text-decoration: none;
+  }
+  .header-cta:hover { opacity: 0.85; }
+
+  /* ── Sub-header ── */
+  .sub-header {
+    position: fixed; top: 64px; left: 0; right: 0; z-index: 290;
+    height: 48px; background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; transition: all 0.3s;
+  }
+  .sub-header-inner {
+    width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .breadcrumbs {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .breadcrumbs a {
+    color: var(--text-sec); text-decoration: none; transition: color 0.2s;
+  }
+  .breadcrumbs a:hover {
+    color: var(--text);
+  }
+  .breadcrumbs .sep {
+    color: var(--text-muted);
+  }
+  .breadcrumbs .current {
+    color: #FF000F; /* Red branding color */
+    font-weight: 700;
+  }
+  .sub-nav-links {
+    display: flex; gap: 20px; list-style: none;
+  }
+  .sub-nav-links a {
+    color: var(--text-sec); text-decoration: none;
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; padding-bottom: 4px; border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .sub-nav-links a:hover {
+    color: var(--text); border-bottom-color: #FF000F;
+  }
+
+  /* ── Progress bar ── */
+  #progress-bar { position: fixed; top: 112px; left: 0; height: 2px; background: #FF000F; width: 0%; z-index: 99; transition: width 0.1s linear; }
+
+  /* ── Layout ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+  /* ── Hero (always dark — has photo bg) ── */
+  .hero { position: relative; overflow: hidden; background: #0D0D18; }
+  .hero-img { position: absolute; inset: 0; background: url('assets/heuristics-04.jpeg') center/cover no-repeat; opacity: 0.2; }
+  .hero-gradient { position: absolute; inset: 0; background: linear-gradient(to top, #0A0A0F 30%, rgba(10,10,15,0.5) 70%, rgba(10,10,15,0.2) 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 140px 40px 40px 40px; max-width: 1100px; margin: 0 auto; width: 100%; }
+  .hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+  .hero-eyebrow span { color: #FF000F; }
+  .hero-h1 { font-size: clamp(52px, 8vw, 96px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.95; color: #fff; margin-bottom: 28px; }
+  .hero-sub { font-size: 18px; color: rgba(255,255,255,0.45); max-width: 52ch; line-height: 1.6; margin-bottom: 56px; }
+  .hero-meta { display: flex; gap: 56px; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 32px; }
+  .hero-meta-item label { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); margin-bottom: 6px; }
+  .hero-meta-item span { font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.75); }
+
+  /* ── Sections ── */
+  .section { padding: 48px 0; border-top: 1px solid var(--border-sm); }
+  .section-alt { background: var(--bg2); }
+  .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; }
+  .section-title { font-size: clamp(28px, 4vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; color: var(--text); margin-bottom: 24px; max-width: 22ch; }
+  .body-text { font-size: 16px; color: var(--text-sec); line-height: 1.75; }
+
+  /* ── KPI row ── */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 24px; }
+  .kpi-cell { padding: 24px 20px; border-right: 1px solid var(--border); }
+  .kpi-cell:last-child { border-right: none; }
+  .kpi-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 12px; }
+  .kpi-value { font-size: 48px; font-weight: 700; letter-spacing: -0.04em; color: var(--text); line-height: 1; margin-bottom: 10px; }
+  .kpi-caption { font-size: 13px; color: var(--text-ter); line-height: 1.5; }
+  .kpi-value .unit { font-size: 32px; color: var(--text-ter); }
+
+  /* ── Role grid ── */
+  .role-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 24px; }
+  .role-cell { padding: 24px 24px; border-right: 1px solid var(--border); }
+  .role-cell:last-child { border-right: none; }
+  .role-cell-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 20px; }
+  .role-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .role-list li { font-size: 14px; color: var(--text-sec); padding-left: 16px; position: relative; }
+  .role-list li::before { content: '—'; position: absolute; left: 0; color: var(--text-faint); }
+
+  /* ── Timeline ── */
+  .timeline { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 16px; }
+  .tl-cell { padding: 20px 24px; border-right: 1px solid var(--border); background: var(--surface2); }
+  .tl-cell:last-child { border-right: none; background: var(--tl-accent-bg); }
+  .tl-cell:last-child .tl-week { color: var(--tl-accent-label); }
+  .tl-cell:last-child .tl-name { color: var(--tl-accent-text); }
+  .tl-week { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 8px; }
+  .tl-name { font-size: 16px; font-weight: 600; color: var(--text-sec); }
+
+  /* ── Problem ── */
+  .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .problem-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+  .problem-list li { font-size: 15px; color: var(--text-sec); line-height: 1.6; padding: 16px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding-left: 44px; position: relative; }
+  .problem-list li::before { content: attr(data-n); position: absolute; left: 16px; top: 16px; font-size: 11px; font-weight: 700; color: var(--text-faint); font-family: 'JetBrains Mono', monospace; }
+
+  /* ── Heuristics ── */
+  .heuristic-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 48px; }
+  .heuristic-tile { padding: 20px 18px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); }
+  .heuristic-tile.flagged { background: rgba(255,0,15,0.08); border-color: rgba(255,0,15,0.25); }
+  .heuristic-tile .h-num { font-size: 11px; font-weight: 700; color: var(--text-faint); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em; display: block; margin-bottom: 8px; }
+  .heuristic-tile.flagged .h-num { color: #FF000F; }
+  .heuristic-tile .h-name { font-size: 13px; font-weight: 600; color: var(--text-sec); line-height: 1.4; }
+  .heuristic-tile.flagged .h-name { color: var(--text); }
+  .heuristic-note { margin-top: 24px; font-size: 14px; color: var(--text-ter); }
+  .heuristic-note span { color: #FF000F; font-weight: 600; }
+
+  /* ── Findings ── */
+  .finding-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; }
+  .finding-card { padding: 32px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface); }
+  .finding-num { font-size: 11px; font-weight: 700; color: var(--text-faint); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em; margin-bottom: 12px; }
+  .finding-name { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 12px; letter-spacing: -0.02em; }
+  .finding-desc { font-size: 14px; color: var(--text-ter); line-height: 1.65; margin-bottom: 16px; }
+  .finding-tag { display: inline-block; font-size: 11px; font-weight: 600; color: #FF000F; background: rgba(255,0,15,0.08); border: 1px solid rgba(255,0,15,0.2); padding: 4px 12px; border-radius: 20px; letter-spacing: 0.04em; }
+
+  /* ── Audit split ── */
+  .audit-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 48px; }
+  .audit-panel { display: flex; flex-direction: column; gap: 16px; }
+  .audit-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 6px 14px; border-radius: 20px; align-self: flex-start; }
+  .tag-before { background: var(--surface4); color: var(--text-ter); border: 1px solid var(--border-med); }
+  .tag-after { background: rgba(255,0,15,0.08); color: #FF000F; border: 1px solid rgba(255,0,15,0.2); }
+  .tag-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .audit-img { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); }
+  .audit-img img { width: 100%; height: 260px; object-fit: cover; object-position: top; display: block; }
+  .audit-caption { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .rec-list { display: flex; flex-direction: column; gap: 14px; }
+  .rec-item { display: flex; gap: 16px; align-items: flex-start; }
+  .rec-n { font-size: 11px; font-weight: 700; color: var(--text-faint); font-family: 'JetBrains Mono', monospace; padding-top: 2px; flex-shrink: 0; width: 20px; }
+  .rec-t { font-size: 14px; color: var(--text-sec); line-height: 1.6; }
+  .heuristic-violated { margin-top: 20px; padding: 16px 20px; background: rgba(255,0,15,0.06); border: 1px solid rgba(255,0,15,0.15); border-radius: 10px; }
+  .hv-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,0,15,0.7); margin-bottom: 6px; }
+  .hv-value { font-size: 14px; font-weight: 600; color: var(--text-sec); }
+
+  /* ── IA ── */
+  .ia-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 48px; }
+  .ia-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 32px; }
+  .ia-title { font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 24px; }
+  .ia-tree { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .ia-root { background: var(--ia-root-bg); color: var(--ia-root-text); font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; }
+  .ia-connector { width: 1px; height: 20px; background: var(--ia-connector); }
+  .ia-row { display: flex; gap: 8px; justify-content: center; }
+  .ia-node { background: var(--surface3); border: 1px solid var(--border-med); color: var(--text-sec); font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 6px; white-space: nowrap; }
+  .ia-sub { background: var(--surface2); border: 1px solid var(--border); color: var(--text-ter); font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
+  .ia-caption { font-size: 13px; color: var(--text-muted); margin-top: 20px; text-align: center; }
+
+  /* ── Journey ── */
+  .journey-grid { display: grid; grid-template-columns: 80px repeat(5, 1fr); gap: 0; margin-top: 48px; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+  .j-row-label { padding: 20px 16px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-faint); background: var(--surface2); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); display: flex; align-items: center; }
+  .j-cell { padding: 20px; font-size: 13px; color: var(--text-sec); line-height: 1.5; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .j-cell:last-child { border-right: none; }
+  .j-cell.header { font-size: 14px; font-weight: 700; color: var(--text); background: var(--surface3); }
+  .j-cell.header .step-n { font-size: 10px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px; font-family: 'JetBrains Mono', monospace; }
+  .j-emotion { font-size: 24px; display: block; margin-bottom: 4px; }
+  .j-emotion-label { font-size: 12px; color: var(--text-ter); font-weight: 600; }
+  .j-opp { font-size: 12px; color: var(--text-ter); line-height: 1.5; }
+
+  /* ── Wireframes ── */
+  .sketch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .sketch-card { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); }
+  .sketch-card img { width: 100%; height: 260px; object-fit: cover; display: block; }
+  .sketch-dark-body { padding: 28px; background: #111; height: 260px; display: flex; flex-direction: column; gap: 16px; }
+  .sketch-dark-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #FF000F; }
+  .sketch-dark-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .sketch-dark-list li { font-size: 13px; color: rgba(255,255,255,0.65); padding-left: 16px; position: relative; }
+  .sketch-dark-list li::before { content: '—'; position: absolute; left: 0; color: rgba(255,255,255,0.2); }
+  .sketch-footer { padding: 14px 20px; display: flex; justify-content: space-between; border-top: 1px solid var(--border); }
+  .sketch-footer-name { font-size: 13px; font-weight: 600; color: var(--text-sec); }
+  .sketch-footer-tag { font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+
+  /* ── Redesign ── */
+  .redesign-hero { margin-top: 48px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 48px; align-items: center; }
+  .redesign-img { border-radius: 16px; overflow: hidden; border: 1px solid var(--border-med); box-shadow: 0 40px 80px -20px rgba(0,0,0,0.3); }
+  .redesign-img img { width: 100%; display: block; }
+  .redesign-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+  .redesign-stat { padding: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .redesign-stat-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 8px; }
+  .redesign-stat-value { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+
+  /* ── Variations ── */
+  .variations-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 48px; }
+  .variation-card { display: flex; flex-direction: column; gap: 16px; }
+  .variation-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #FF000F; background: rgba(255,0,15,0.08); border: 1px solid rgba(255,0,15,0.2); padding: 5px 14px; border-radius: 20px; align-self: flex-start; }
+  .variation-img { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); }
+  .variation-img img { width: 100%; height: 220px; object-fit: cover; object-position: top; display: block; }
+  .variation-desc { font-size: 13px; color: var(--text-ter); line-height: 1.55; }
+
+  /* ── Outcomes ── */
+  .outcomes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .outcome-card { padding: 40px 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; }
+  .outcome-value { font-size: 52px; font-weight: 700; letter-spacing: -0.04em; color: var(--text); line-height: 1; margin-bottom: 16px; }
+  .outcome-desc { font-size: 14px; color: var(--text-ter); line-height: 1.6; }
+  .outcomes-note { margin-top: 40px; padding: 24px 28px; background: var(--surface2); border: 1px solid var(--border-sm); border-radius: 12px; font-size: 15px; color: var(--text-ter); line-height: 1.7; }
+
+  /* ── Reflections ── */
+  .reflections-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .reflection-quote { font-size: clamp(20px, 3vw, 28px); font-weight: 500; color: var(--text-sec); line-height: 1.5; padding: 40px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; font-style: italic; }
+  .reflection-quote em { color: var(--text); font-style: normal; font-weight: 700; }
+  .reflections-list { display: flex; flex-direction: column; gap: 32px; }
+  .reflection-item { padding-left: 24px; border-left: 2px solid rgba(255,0,15,0.4); }
+  .reflection-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-ter); margin-bottom: 10px; font-family: 'JetBrains Mono', monospace; }
+  .reflection-body { font-size: 15px; color: var(--text-sec); line-height: 1.7; }
+
+  /* ── Contact ── */
+  .contact-section { padding: 60px 0; background: var(--bg2); border-top: 1px solid var(--border-sm); text-align: center; }
+  .contact-thank { font-size: clamp(56px, 10vw, 120px); font-weight: 700; letter-spacing: -0.04em; color: var(--text); line-height: 0.95; margin-bottom: 32px; }
+  .contact-thank span { color: #FF000F; }
+  .contact-sub { font-size: 18px; color: var(--text-ter); max-width: 44ch; margin: 0 auto 32px; line-height: 1.6; }
+  .contact-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+  .contact-link { font-size: 14px; font-weight: 600; color: var(--text-sec); padding: 14px 28px; border-radius: 32px; border: 1px solid var(--border-strong); background: var(--surface); transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+  .contact-link:hover { background: var(--surface4); color: var(--text); }
+  .contact-link.primary { background: var(--contact-primary-bg); color: var(--contact-primary-text); border-color: var(--contact-primary-bg); }
+  .contact-link.primary:hover { opacity: 0.88; }
+
+  /* ── Section label ── */
+  .section-label { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+  .section-label-num { font-size: 12px; font-weight: 700; color: var(--text-faint); font-family: 'JetBrains Mono', monospace; }
+  .section-label-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* ── IA proposed panel accent ── */
+  .ia-panel-proposed { background: var(--surface4) !important; border-color: var(--border-strong) !important; }
+  .ia-title-proposed { color: #FF000F !important; }
+  /* ── Sketch notes card (always dark) ── */
+  .sketch-footer-dark { background: #111 !important; border-color: rgba(255,255,255,0.07) !important; }
+  .sketch-footer-name-dark { color: rgba(255,255,255,0.65) !important; }
+
+  /* ── Figma link ── */
+  .figma-btn { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 8px 18px; border-radius: 20px; transition: all 0.2s; margin-bottom: 60px; text-decoration: none; }
+  .figma-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+  .figma-dot { width: 8px; height: 8px; border-radius: 50%; background: #F24E1E; }
+
+  @media (max-width: 768px) {
+    .portfolio-header { padding: 0 20px; }
+    .sub-header-inner { padding: 0 20px; }
+    .sub-nav-links { display: none; }
+    .container { padding: 0 20px; }
+    .hero-content { padding: 100px 20px 40px 20px; }
+    .section { padding: 32px 0; }
+    .contact-section { padding: 40px 0; }
+    .kpi-grid, .role-grid { grid-template-columns: repeat(2, 1fr); }
+    .problem-grid, .audit-split, .ia-split, .reflections-grid, .redesign-hero { grid-template-columns: 1fr; }
+    .heuristic-grid { grid-template-columns: repeat(2, 1fr); }
+    .finding-grid, .variations-grid, .sketch-grid { grid-template-columns: 1fr; }
+    .outcomes-grid { grid-template-columns: 1fr; }
+    .timeline { grid-template-columns: repeat(2, 1fr); }
+    .journey-grid { display: none; }
+    .hero-meta { gap: 32px; }
+  }
+</style>
+</head>
+<body>
+<!-- Apply saved theme instantly — no flash -->
+<script>
+  (function(){
+    var t = localStorage.getItem('theme') || localStorage.getItem('bh-theme') || 'dark';
+    if (t === 'light') {
+      document.documentElement.classList.add('light');
+    } else {
+      document.documentElement.classList.remove('light');
+    }
+  })();
+</script>
+
+<!-- Main Header -->
+<header class="portfolio-header">
+  <a href="/" class="header-logo">
+    <div class="header-avatar-wrap">
+      <img src="/uploads/profile.png" alt="Bharath Hegde" class="header-avatar">
+    </div>
+    <span>BHARATH HEGDE</span>
+  </a>
+  <div class="header-right">
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme">☀</button>
+    <a href="https://www.linkedin.com/in/bharathegde" target="_blank" class="header-cta">Hire Me</a>
+  </div>
+</header>
+
+<!-- Sub-header -->
+<div class="sub-header">
+  <div class="sub-header-inner">
+    <nav class="breadcrumbs">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/ABB-Genix-Platforms.html">ABB Genix</a>
+      <span class="sep">/</span>
+      <span class="current">OLM 2.0</span>
+    </nav>
+    <ul class="sub-nav-links">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#problem">Problem</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#redesign">Redesign</a></li>
+      <li><a href="#outcomes">Outcomes</a></li>
+    </ul>
+  </div>
+</div>
+
+<div id="progress-bar"></div>
+
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="hero-img"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span>ABB Ability™ Genix</span> · Industrial Analytics Suite · 2022 — 2023
+    </div>
+    <h1 class="hero-h1">Opportunity<br/>Loss<br/>Manager.</h1>
+    <p class="hero-sub">Redesigning an enterprise loss-tracking tool used by plant managers and process engineers across continuous production sites.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><label>Designer</label><span>Bharath Hegde</span></div>
+      <div class="hero-meta-item"><label>Role</label><span>Principal UX Analyst</span></div>
+      <div class="hero-meta-item"><label>Duration</label><span>Dec 2022 — Jan 2023</span></div>
+      <div class="hero-meta-item"><label>Type</label><span>Heuristic Evaluation + Redesign</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Overview -->
+<section class="section" id="overview">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">01</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="eyebrow">At a glance</div>
+    <h2 class="section-title">A heuristic-led redesign of a complex industrial dashboard.</h2>
+    <div class="kpi-grid">
+      <div class="kpi-cell">
+        <div class="kpi-label">Pages audited</div>
+        <div class="kpi-value">04</div>
+        <div class="kpi-caption">Landing, Insights, Events, Root Cause Analysis</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-label">Heuristic issues</div>
+        <div class="kpi-value">18</div>
+        <div class="kpi-caption">Mapped to Nielsen's 10 usability heuristics</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-label">Tabs consolidated</div>
+        <div class="kpi-value">4 <span class="unit">→ 1</span></div>
+        <div class="kpi-caption">Insights tabs merged into one summary view</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-label">Clicks & steps</div>
+        <div class="kpi-value">↓</div>
+        <div class="kpi-caption">Reduced friction across event creation and review flows</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Role & Timeline -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">02</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="eyebrow">My role</div>
+    <h2 class="section-title">Sole UX lead on a four-week heuristic evaluation and redesign sprint.</h2>
+    <div class="role-grid">
+      <div class="role-cell">
+        <div class="role-cell-title">Responsibilities</div>
+        <ul class="role-list">
+          <li>Heuristic audit (Nielsen's 10)</li>
+          <li>Information architecture</li>
+          <li>Wireframes &amp; hi-fi mocks</li>
+          <li>Stakeholder presentation</li>
+        </ul>
+      </div>
+      <div class="role-cell">
+        <div class="role-cell-title">Team</div>
+        <ul class="role-list">
+          <li>1 UX Designer (me)</li>
+          <li>2 Product Managers</li>
+          <li>Engineering partners</li>
+          <li>Domain SMEs</li>
+        </ul>
+      </div>
+      <div class="role-cell">
+        <div class="role-cell-title">Tools</div>
+        <ul class="role-list">
+          <li>Figma</li>
+          <li>FigJam</li>
+          <li>Microsoft PowerPoint</li>
+          <li>Pen &amp; paper sketches</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="tl-cell"><div class="tl-week">Week 1</div><div class="tl-name">Audit &amp; discovery</div></div>
+      <div class="tl-cell"><div class="tl-week">Week 2</div><div class="tl-name">Issue mapping</div></div>
+      <div class="tl-cell"><div class="tl-week">Week 3</div><div class="tl-name">IA &amp; wireframes</div></div>
+      <div class="tl-cell"><div class="tl-week">Week 4</div><div class="tl-name">Hi-fi redesign</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Problem -->
+<section class="section" id="problem">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">03</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="problem-grid">
+      <div>
+        <div class="eyebrow">The problem</div>
+        <h2 class="section-title">Power users were spending more time fighting the tool than solving losses.</h2>
+      </div>
+      <div>
+        <p class="body-text" style="margin-bottom: 24px;">OLM tracks lost opportunities in continuous production — yield, energy, catalyst, downtime. The existing interface had grown organically over multiple releases.</p>
+        <ul class="problem-list">
+          <li data-n="01">Insights were split across four tabs; location filters reset between them.</li>
+          <li data-n="02">Event tables wrapped, scrolled horizontally and obscured key actions.</li>
+          <li data-n="03">Root-cause flows lacked breadcrumbs, with no clear back path.</li>
+          <li data-n="04">KPIs that mattered most were buried inside drilldowns.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Approach -->
+<section class="section section-alt" id="approach">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">04</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="eyebrow">Method</div>
+    <h2 class="section-title">Audited every screen against Nielsen's ten usability heuristics.</h2>
+    <div class="heuristic-grid">
+      <div class="heuristic-tile flagged"><span class="h-num">01</span><span class="h-name">Visibility of system status</span></div>
+      <div class="heuristic-tile"><span class="h-num">02</span><span class="h-name">Match between system and real world</span></div>
+      <div class="heuristic-tile"><span class="h-num">03</span><span class="h-name">User control and freedom</span></div>
+      <div class="heuristic-tile flagged"><span class="h-num">04</span><span class="h-name">Consistency and standards</span></div>
+      <div class="heuristic-tile"><span class="h-num">05</span><span class="h-name">Error prevention</span></div>
+      <div class="heuristic-tile"><span class="h-num">06</span><span class="h-name">Recognition rather than recall</span></div>
+      <div class="heuristic-tile"><span class="h-num">07</span><span class="h-name">Flexibility and efficiency of use</span></div>
+      <div class="heuristic-tile flagged"><span class="h-num">08</span><span class="h-name">Aesthetic and minimalist design</span></div>
+      <div class="heuristic-tile"><span class="h-num">09</span><span class="h-name">Help users recover from errors</span></div>
+      <div class="heuristic-tile"><span class="h-num">10</span><span class="h-name">Help and documentation</span></div>
+    </div>
+    <p class="heuristic-note">Tiles highlighted in <span>red</span> were the three principles most frequently violated across the audited pages.</p>
+  </div>
+</section>
+
+<!-- Findings -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">05</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="eyebrow">Findings</div>
+    <h2 class="section-title">Eighteen issues across four pages, clustered into four themes.</h2>
+    <div class="finding-grid">
+      <div class="finding-card">
+        <div class="finding-num">01 / Theme</div>
+        <div class="finding-name">Navigation &amp; orientation</div>
+        <div class="finding-desc">Home button lands on an interim "main page" instead of the dashboard. Breadcrumbs and a back path are missing inside drill-downs.</div>
+        <span class="finding-tag">Consistency · System status</span>
+      </div>
+      <div class="finding-card">
+        <div class="finding-num">02 / Theme</div>
+        <div class="finding-name">Filter &amp; selection state</div>
+        <div class="finding-desc">Location filters reset every time the user switches tab. Date pickers are split from their labels and act independently.</div>
+        <span class="finding-tag">System status · Recognition</span>
+      </div>
+      <div class="finding-card">
+        <div class="finding-num">03 / Theme</div>
+        <div class="finding-name">Information density</div>
+        <div class="finding-desc">Loss-category visuals are crowded. Event tables scroll horizontally. Repeated titles make sections hard to parse at a glance.</div>
+        <span class="finding-tag">Aesthetic · Minimalist</span>
+      </div>
+      <div class="finding-card">
+        <div class="finding-num">04 / Theme</div>
+        <div class="finding-name">Action discoverability</div>
+        <div class="finding-desc">"Create event" sits where filters would be expected. Footers stack four buttons. Clickable event IDs read as plain text.</div>
+        <span class="finding-tag">Consistency · Recognition</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Audit: Landing -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">06</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="eyebrow">Audit · Landing page</div>
+    <h2 class="section-title">The home icon doesn't take users home.</h2>
+    <div class="audit-split">
+      <div class="audit-panel">
+        <span class="audit-tag tag-before"><span class="tag-dot"></span>Before</span>
+        <div class="audit-img"><img src="assets/heuristics-06.png" alt="Original OLM landing page" /></div>
+        <p class="audit-caption">Users land on a hub of four module tiles. The page they actually need — Insights — is two clicks away every session.</p>
+      </div>
+      <div class="audit-panel">
+        <span class="audit-tag tag-after"><span class="tag-dot"></span>Recommendation</span>
+        <div class="rec-list">
+          <div class="rec-item"><span class="rec-n">01</span><span class="rec-t">Route the home action directly into the Insights dashboard.</span></div>
+          <div class="rec-item"><span class="rec-n">02</span><span class="rec-t">Demote the module tiles into a persistent left rail.</span></div>
+          <div class="rec-item"><span class="rec-n">03</span><span class="rec-t">Surface a "last visited" entry point for return users.</span></div>
+          <div class="rec-item"><span class="rec-n">04</span><span class="rec-t">Cut the orphan page that was creating the extra step entirely.</span></div>
+        </div>
+        <div class="heuristic-violated"><div class="hv-label">Heuristic violated</div><div class="hv-value">Consistency &amp; standards</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Audit: Insights -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">07</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="eyebrow">Audit · Insights dashboard</div>
+    <h2 class="section-title">Four tabs, four resets, four times the work.</h2>
+    <div class="audit-split">
+      <div class="audit-panel">
+        <span class="audit-tag tag-before"><span class="tag-dot"></span>Before</span>
+        <div class="audit-img"><img src="assets/heuristics-07.png" alt="Original analytics tab" /></div>
+        <p class="audit-caption">Insights split across OLM Summary, OLM Analytics, OEE, OLM Event Analytics and Process Reliability — each with its own location filter.</p>
+      </div>
+      <div class="audit-panel">
+        <span class="audit-tag tag-after"><span class="tag-dot"></span>Recommendation</span>
+        <div class="rec-list">
+          <div class="rec-item"><span class="rec-n">01</span><span class="rec-t">Lift location selection to a global, persistent header.</span></div>
+          <div class="rec-item"><span class="rec-n">02</span><span class="rec-t">Collapse the five tabs into one summary with progressive drill-down.</span></div>
+          <div class="rec-item"><span class="rec-n">03</span><span class="rec-t">Promote the five most-used KPIs to the top of the page.</span></div>
+          <div class="rec-item"><span class="rec-n">04</span><span class="rec-t">Replace overlapping titles with a single, scannable hierarchy.</span></div>
+        </div>
+        <div class="heuristic-violated"><div class="hv-label">Heuristic violated</div><div class="hv-value">Visibility of status · Aesthetic minimalism</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Audit: Events -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">08</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="eyebrow">Audit · Event management</div>
+    <h2 class="section-title">The most-used screen had the least breathing room.</h2>
+    <div class="audit-split">
+      <div class="audit-panel">
+        <span class="audit-tag tag-before"><span class="tag-dot"></span>Before</span>
+        <div class="audit-img"><img src="assets/heuristics-08.png" alt="Original events table" /></div>
+        <p class="audit-caption">Event lists rendered as one wide table. Reviewer/Approver state lived in inline links. "Create event" sat next to filter dropdowns.</p>
+      </div>
+      <div class="audit-panel">
+        <span class="audit-tag tag-after"><span class="tag-dot"></span>Recommendation</span>
+        <div class="rec-list">
+          <div class="rec-item"><span class="rec-n">01</span><span class="rec-t">Add a KPI strip for Open, In review, Approved and Rejected events.</span></div>
+          <div class="rec-item"><span class="rec-n">02</span><span class="rec-t">Split Reviewer and Approver into named workflow tabs.</span></div>
+          <div class="rec-item"><span class="rec-n">03</span><span class="rec-t">Move "Create event" to a primary action slot in the header.</span></div>
+          <div class="rec-item"><span class="rec-n">04</span><span class="rec-t">Use a master-detail split so events open in context, not on a new page.</span></div>
+        </div>
+        <div class="heuristic-violated"><div class="hv-label">Heuristic violated</div><div class="hv-value">Consistency · Aesthetic minimalism</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IA -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">09</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="eyebrow">Information architecture</div>
+    <h2 class="section-title">Flattening four modules into a single, scannable hierarchy.</h2>
+    <div class="ia-split">
+      <div class="ia-panel">
+        <div class="ia-title">Current IA</div>
+        <div class="ia-tree">
+          <span class="ia-root">OLM</span>
+          <div class="ia-connector"></div>
+          <div class="ia-row">
+            <span class="ia-node">Home</span>
+            <span class="ia-node">Loss Config</span>
+            <span class="ia-node">Loss Mgmt</span>
+            <span class="ia-node">Root Cause</span>
+            <span class="ia-node">Prevention</span>
+          </div>
+          <div class="ia-row" style="margin-top:8px; flex-wrap:wrap; justify-content:center; gap:6px;">
+            <span class="ia-sub">Types</span><span class="ia-sub">Categories</span><span class="ia-sub">Events</span>
+            <span class="ia-sub">Approver</span><span class="ia-sub">RCA list</span><span class="ia-sub">Tasks</span>
+            <span class="ia-sub">Summary</span><span class="ia-sub">Analytics</span><span class="ia-sub">+3 more</span>
+          </div>
+        </div>
+        <p class="ia-caption">5 modules · 18 sub-pages · 5 disconnected insight tabs</p>
+      </div>
+      <div class="ia-panel ia-panel-proposed">
+        <div class="ia-title ia-title-proposed">Proposed IA</div>
+        <div class="ia-tree">
+          <span class="ia-root dark">OLM</span>
+          <div class="ia-connector"></div>
+          <div class="ia-row">
+            <span class="ia-node" style="border-color:rgba(255,255,255,0.15); color:rgba(255,255,255,0.85);">Dashboard</span>
+            <span class="ia-node" style="border-color:rgba(255,255,255,0.15); color:rgba(255,255,255,0.85);">Loss Config</span>
+            <span class="ia-node" style="border-color:rgba(255,255,255,0.15); color:rgba(255,255,255,0.85);">Loss Mgmt</span>
+          </div>
+          <div class="ia-row" style="margin-top:8px; flex-wrap:wrap; justify-content:center; gap:6px;">
+            <span class="ia-sub">Top KPIs</span><span class="ia-sub">Loss tree</span><span class="ia-sub">By unit</span>
+            <span class="ia-sub">Categories</span><span class="ia-sub">Hierarchy</span>
+            <span class="ia-sub">Events</span><span class="ia-sub">RCA tasks</span><span class="ia-sub">Actions</span>
+          </div>
+        </div>
+        <p class="ia-caption">3 modules · 9 sub-pages · global filter bar at root</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- User Journey -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">10</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="eyebrow">Journey · Process engineer investigating an anomaly</div>
+    <h2 class="section-title">Five steps from notification to corrective action.</h2>
+    <div class="journey-grid">
+      <div class="j-row-label">Step</div>
+      <div class="j-cell header"><span class="step-n">01</span>Detect</div>
+      <div class="j-cell header"><span class="step-n">02</span>Overview</div>
+      <div class="j-cell header"><span class="step-n">03</span>Inspect</div>
+      <div class="j-cell header"><span class="step-n">04</span>Diagnose</div>
+      <div class="j-cell header"><span class="step-n">05</span>Resolve</div>
+
+      <div class="j-row-label">Action</div>
+      <div class="j-cell">Sees alert in fleet view; opens analyzer status.</div>
+      <div class="j-cell">Reviews hierarchy, criticality and tag trends.</div>
+      <div class="j-cell">Drills into the anomaly view for tag-level values.</div>
+      <div class="j-cell">Reads digital-twin diagram and IOW limits.</div>
+      <div class="j-cell">Tracks resolution; acknowledges &amp; closes.</div>
+
+      <div class="j-row-label">Mindset</div>
+      <div class="j-cell"><span class="j-emotion">😟</span><span class="j-emotion-label">Anxious</span></div>
+      <div class="j-cell"><span class="j-emotion">🤨</span><span class="j-emotion-label">Worried</span></div>
+      <div class="j-cell"><span class="j-emotion">😕</span><span class="j-emotion-label">Mixed</span></div>
+      <div class="j-cell"><span class="j-emotion">🙂</span><span class="j-emotion-label">Confident</span></div>
+      <div class="j-cell"><span class="j-emotion">😀</span><span class="j-emotion-label">Resolved</span></div>
+
+      <div class="j-row-label">Opportunity</div>
+      <div class="j-cell j-opp">Surface criticality at-a-glance, not buried inside drilldown.</div>
+      <div class="j-cell j-opp">Show analyzer status + group trends on one canvas.</div>
+      <div class="j-cell j-opp">Anchor tag values to time-series, not modal tables.</div>
+      <div class="j-cell j-opp">Bring IOW thresholds into the chart, not into help text.</div>
+      <div class="j-cell j-opp">Auto-link RCA to the event; close the loop on action.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Wireframes -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">11</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="eyebrow">Sketching</div>
+    <h2 class="section-title">Paper first — to bias toward layout over polish.</h2>
+    <div class="sketch-grid">
+      <div class="sketch-card">
+        <img src="assets/heuristics-16.jpeg" alt="Hand sketch — dashboard" />
+        <div class="sketch-footer">
+          <span class="sketch-footer-name">Dashboard layout</span>
+          <span class="sketch-footer-tag">Sketch 01</span>
+        </div>
+      </div>
+      <div class="sketch-card">
+        <img src="assets/heuristics-17.jpeg" alt="Hand sketch — events" />
+        <div class="sketch-footer">
+          <span class="sketch-footer-name">Event management</span>
+          <span class="sketch-footer-tag">Sketch 02</span>
+        </div>
+      </div>
+      <div class="sketch-card">
+        <div class="sketch-dark-body">
+          <span class="sketch-dark-label">Notes from sketching</span>
+          <ul class="sketch-dark-list">
+            <li>KPIs anchor every page.</li>
+            <li>One filter bar, applied globally.</li>
+            <li>Tables breathe — split master/detail.</li>
+            <li>Charts pull double duty as filters.</li>
+          </ul>
+        </div>
+        <div class="sketch-footer sketch-footer-dark">
+          <span class="sketch-footer-name sketch-footer-name-dark">Principles</span>
+          <span class="sketch-footer-tag">From sketch to mock</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Redesign -->
+<section class="section section-alt" id="redesign">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">12</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="eyebrow">Hi-fi redesign · Dashboard</div>
+    <h2 class="section-title">One dashboard. Five KPIs. Zero tabs.</h2>
+    <div class="redesign-hero">
+      <div>
+        <p class="body-text">The new home screen surfaces Overall Loss, OEE, Reliability and Open RCA actions at the top, with a global filter bar and a single, drillable loss chart below.</p>
+        <div class="redesign-stats">
+          <div class="redesign-stat"><div class="redesign-stat-label">KPIs surfaced</div><div class="redesign-stat-value">5</div></div>
+          <div class="redesign-stat"><div class="redesign-stat-label">Tabs replaced</div><div class="redesign-stat-value">5 → 0</div></div>
+          <div class="redesign-stat"><div class="redesign-stat-label">Global filters</div><div class="redesign-stat-value">Persistent</div></div>
+          <div class="redesign-stat"><div class="redesign-stat-label">Drilldown</div><div class="redesign-stat-value">Progressive</div></div>
+        </div>
+      </div>
+      <div class="redesign-img">
+        <img src="assets/redesign-02.png" alt="Redesigned OLM dashboard" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Variations -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">13</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="eyebrow">Hi-fi redesign · Variations</div>
+    <h2 class="section-title">Same canvas, three lenses on the same data.</h2>
+    <div class="variations-grid">
+      <div class="variation-card">
+        <span class="variation-tag">01 · Tree</span>
+        <div class="variation-img"><img src="assets/redesign-05.png" alt="Tree view" /></div>
+        <p class="variation-desc">Cumulative loss hierarchy with five drilldown levels — the analyst's view.</p>
+      </div>
+      <div class="variation-card">
+        <span class="variation-tag">02 · List</span>
+        <div class="variation-img"><img src="assets/redesign-08.png" alt="List view" /></div>
+        <p class="variation-desc">Expandable list — the plant manager's view for monthly review.</p>
+      </div>
+      <div class="variation-card">
+        <span class="variation-tag">03 · Daily</span>
+        <div class="variation-img"><img src="assets/redesign-01.png" alt="Day view" /></div>
+        <p class="variation-desc">Day-level time series with hover-state event breakdown — the engineer's view.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Outcomes -->
+<section class="section section-alt" id="outcomes">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">14</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="eyebrow">What changed</div>
+    <h2 class="section-title">A leaner surface and a shorter path to every common action.</h2>
+    <div class="outcomes-grid">
+      <div class="outcome-card">
+        <div class="outcome-value">5 → 1</div>
+        <div class="outcome-desc">Insight tabs consolidated into a single dashboard with progressive drilldown.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-value">↓</div>
+        <div class="outcome-desc">Clicks and steps reduced across the event creation and RCA review flows.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-value">1</div>
+        <div class="outcome-desc">Global filter bar — location, year and period — applied once, persistent across the app.</div>
+      </div>
+    </div>
+    <div class="outcomes-note">Stakeholder feedback after walkthroughs centred on the value of the consolidated dashboard and the new KPI strip — both became the basis for the next sprint's hi-fi spec.</div>
+  </div>
+</section>
+
+<!-- Reflections -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">15</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="eyebrow">What I learned</div>
+    <h2 class="section-title">Three things that stuck.</h2>
+    <div class="reflections-grid">
+      <div class="reflection-quote">
+        "A heuristic audit is only useful when it leads to a <em>specific design decision</em> — every issue I flagged came with a sketch attached."
+      </div>
+      <div class="reflections-list">
+        <div class="reflection-item">
+          <div class="reflection-title">01 · Audit with intent</div>
+          <div class="reflection-body">A heuristic violation in isolation tells you nothing — pairing each with a sketch made the redesign decisions defensible.</div>
+        </div>
+        <div class="reflection-item">
+          <div class="reflection-title">02 · Density is a design choice</div>
+          <div class="reflection-body">In industrial tooling, more data does not equal more value. Picking five KPIs forced clarity on what the user actually needs first.</div>
+        </div>
+        <div class="reflection-item">
+          <div class="reflection-title">03 · Sketch in the room</div>
+          <div class="reflection-body">Hand-drawn frames moved stakeholder conversations from "what is this?" to "where does this go?" within a single session.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact-section">
+  <div class="container">
+    <h2 class="contact-thank">Thank you<span>.</span></h2>
+    <p class="contact-sub">I'm open to senior UX and design lead roles in enterprise &amp; industrial software.</p>
+    <div class="contact-links">
+      <a class="contact-link primary" href="https://www.linkedin.com/in/bharathegde" target="_blank">LinkedIn ↗</a>
+      <a class="contact-link" href="mailto:bharathegde22@gmail.com">bharathegde22@gmail.com</a>
+      <a class="contact-link" href="/">← Back to Portfolio</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // ── Theme toggle ──
+  const btn = document.getElementById('themeToggle');
+
+  function applyTheme(t) {
+    if (t === 'light') {
+      document.documentElement.classList.add('light');
+      btn.textContent = '☽';
+      btn.title = 'Switch to dark mode';
+    } else {
+      document.documentElement.classList.remove('light');
+      btn.textContent = '☀';
+      btn.title = 'Switch to light mode';
+    }
+    localStorage.setItem('theme', t);
+    localStorage.setItem('bh-theme', t);
+  }
+
+  // Set button icon to match current state (class already applied at top)
+  applyTheme(localStorage.getItem('theme') || localStorage.getItem('bh-theme') || 'dark');
+
+  btn.addEventListener('click', () => {
+    const isDark = !document.documentElement.classList.contains('light');
+    applyTheme(isDark ? 'light' : 'dark');
+  });
+
+  // ── Progress bar ──
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const scrollTop = doc.scrollTop || document.body.scrollTop;
+    const scrollHeight = doc.scrollHeight - doc.clientHeight;
+    const pct = (scrollTop / scrollHeight) * 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  });
+
+  window.addEventListener('scroll', () => {
+    const topBtn = document.getElementById('scrollToTopBtn');
+    if (!topBtn) return;
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    if (scrollTop > 400) {
+      topBtn.style.opacity = '1';
+      topBtn.style.transform = 'translateY(0)';
+      topBtn.style.pointerEvents = 'auto';
+    } else {
+      topBtn.style.opacity = '0';
+      topBtn.style.transform = 'translateY(10px)';
+      topBtn.style.pointerEvents = 'none';
+    }
+  });
+</script>
+
+<!-- ── SCROLL TO TOP ── -->
+<button id="scrollToTopBtn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" style="position: fixed; bottom: 32px; right: 32px; width: 44px; height: 44px; border-radius: 50%; background: var(--bg2); color: var(--text); border: 1px solid var(--border-med); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 999; opacity: 0; pointer-events: none; transform: translateY(10px); transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.25); font-size: 16px;">
+  ▲
+</button>
+</body>
+</html>

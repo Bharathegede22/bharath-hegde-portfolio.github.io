@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Model Fabric 2.0 · Case Study · Bharath Hegde</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ── CSS Variables — Dark (default) ── */
+  :root {
+    --bg: #0A0A0F; --bg2: #0D0D18;
+    --text: #fff; --text-sec: rgba(255,255,255,0.6); --text-ter: rgba(255,255,255,0.4);
+    --text-muted: rgba(255,255,255,0.25); --text-faint: rgba(255,255,255,0.15);
+    --border: rgba(255,255,255,0.07); --border-sm: rgba(255,255,255,0.05);
+    --border-med: rgba(255,255,255,0.1); --border-strong: rgba(255,255,255,0.12);
+    --surface: rgba(255,255,255,0.03); --surface2: rgba(255,255,255,0.02);
+    --surface3: rgba(255,255,255,0.04); --surface4: rgba(255,255,255,0.06);
+    --nav-bg: rgba(10,10,15,0.9); --nav-text: rgba(255,255,255,0.45);
+    --nav-title: rgba(255,255,255,0.75); --nav-link: rgba(255,255,255,0.35);
+    --nav-link-hover: rgba(255,255,255,0.85); --nav-dot: rgba(255,255,255,0.15);
+    --nav-cta-bg: #fff; --nav-cta-text: #0A0A0F;
+    --toggle-bg: rgba(255,255,255,0.08); --toggle-color: #FFD700;
+    --contact-primary-bg: #fff; --contact-primary-text: #0A0A0F;
+  }
+
+  /* ── CSS Variables — Light ── */
+  html.light {
+    --bg: #FFFFFF; --bg2: #F4F4F9;
+    --text: #0A0A0F; --text-sec: #5A5A72; --text-ter: #86868B;
+    --text-muted: #9E9EAD; --text-faint: rgba(0,0,0,0.2);
+    --border: rgba(0,0,0,0.08); --border-sm: rgba(0,0,0,0.05);
+    --border-med: rgba(0,0,0,0.1); --border-strong: rgba(0,0,0,0.14);
+    --surface: rgba(0,0,0,0.02); --surface2: rgba(0,0,0,0.015);
+    --surface3: rgba(0,0,0,0.03); --surface4: rgba(0,0,0,0.04);
+    --nav-bg: rgba(255,255,255,0.93); --nav-text: #6B6B80;
+    --nav-title: #0A0A0F; --nav-link: #86868B;
+    --nav-link-hover: #0A0A0F; --nav-dot: rgba(0,0,0,0.12);
+    --nav-cta-bg: #0A0A0F; --nav-cta-text: #fff;
+    --toggle-bg: rgba(0,0,0,0.06); --toggle-color: #5A5A72;
+    --contact-primary-bg: #0A0A0F; --contact-primary-text: #fff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; transition: background 0.3s, color 0.3s; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg); color: var(--text);
+    -webkit-font-smoothing: antialiased; line-height: 1.6;
+    transition: background 0.3s, color 0.3s;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ── Unified Nav Header ── */
+  .portfolio-header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+    background: var(--nav-bg); backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 64px;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .header-logo {
+    display: flex; align-items: center; gap: 10px; text-decoration: none;
+    font-size: 15px; font-weight: 800; letter-spacing: 1.5px; color: var(--text);
+  }
+  .header-avatar-wrap {
+    width: 32px; height: 32px; border-radius: 50%; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .header-avatar {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .header-right {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .header-cta {
+    font-size: 12px; font-weight: 700; color: var(--nav-cta-text); background: var(--nav-cta-bg);
+    padding: 7px 16px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.06em; transition: opacity 0.2s;
+    text-decoration: none;
+  }
+  .header-cta:hover { opacity: 0.85; }
+
+  /* ── Sub-header ── */
+  .sub-header {
+    position: fixed; top: 64px; left: 0; right: 0; z-index: 290;
+    height: 48px; background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; transition: all 0.3s;
+  }
+  .sub-header-inner {
+    width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .breadcrumbs {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .breadcrumbs a {
+    color: var(--text-sec); text-decoration: none; transition: color 0.2s;
+  }
+  .breadcrumbs a:hover {
+    color: var(--text);
+  }
+  .breadcrumbs .sep {
+    color: var(--text-muted);
+  }
+  .breadcrumbs .current {
+    color: #FF000F; /* Red branding color */
+    font-weight: 700;
+  }
+  .sub-nav-links {
+    display: flex; gap: 20px; list-style: none;
+  }
+  .sub-nav-links a {
+    color: var(--text-sec); text-decoration: none;
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; padding-bottom: 4px; border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .sub-nav-links a:hover {
+    color: var(--text); border-bottom-color: #FF000F;
+  }
+
+  /* ── Progress bar ── */
+  #progress-bar { position: fixed; top: 112px; left: 0; height: 2px; background: #FF000F; width: 0%; z-index: 99; transition: width 0.1s linear; }
+
+  .theme-toggle {
+    width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--toggle-bg); color: var(--toggle-color);
+    font-size: 16px; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; flex-shrink: 0;
+  }
+  .theme-toggle:hover { opacity: 0.75; }
+
+  /* ── Layout ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+  /* ── Hero (always dark — has photo bg) ── */
+  .hero { position: relative; overflow: hidden; background: #0D0D18; }
+  .hero-img { position: absolute; inset: 0; background: url('uploads/model_fabric_cover.png') center/cover no-repeat; opacity: 0.12; }
+  .hero-gradient { position: absolute; inset: 0; background: linear-gradient(to top, #0A0A0F 30%, rgba(10,10,15,0.5) 70%, rgba(10,10,15,0.2) 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 140px 40px 40px 40px; max-width: 1100px; margin: 0 auto; width: 100%; }
+  .hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+  .hero-eyebrow span { color: #FF000F; }
+  .hero-h1 { font-size: clamp(42px, 6vw, 76px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.95; color: #fff; margin-bottom: 28px; text-transform: uppercase; }
+  .hero-sub { font-size: 18px; color: rgba(255,255,255,0.45); max-width: 52ch; line-height: 1.6; margin-bottom: 56px; }
+  .hero-meta { display: flex; gap: 56px; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 32px; }
+  .hero-meta-item label { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); margin-bottom: 6px; }
+  .hero-meta-item span { font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.75); }
+
+  /* ── Sections ── */
+  .section { padding: 48px 0; border-top: 1px solid var(--border-sm); }
+  .section-alt { background: var(--bg2); }
+  .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; }
+  .section-title { font-size: clamp(28px, 4vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; color: var(--text); margin-bottom: 24px; max-width: 22ch; }
+  .body-text { font-size: 16px; color: var(--text-sec); line-height: 1.75; }
+
+  /* ── Slide Display ── */
+  .slide-container {
+    margin-top: 40px;
+    border: 1px solid var(--border-med);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    background: #000;
+  }
+  .slide-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* ── Contact ── */
+  .contact-section { padding: 60px 0; background: var(--bg2); border-top: 1px solid var(--border-sm); text-align: center; }
+  .contact-thank { font-size: clamp(56px, 10vw, 120px); font-weight: 700; letter-spacing: -0.04em; color: var(--text); line-height: 0.95; margin-bottom: 32px; }
+  .contact-thank span { color: #FF000F; }
+  .contact-sub { font-size: 18px; color: var(--text-ter); max-width: 44ch; margin: 0 auto 32px; line-height: 1.6; }
+  .contact-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+  .contact-link { font-size: 14px; font-weight: 600; color: var(--text-sec); padding: 14px 28px; border-radius: 32px; border: 1px solid var(--border-strong); background: var(--surface); transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+  .contact-link:hover { background: var(--surface4); color: var(--text); }
+  .contact-link.primary { background: var(--contact-primary-bg); color: var(--contact-primary-text); border-color: var(--contact-primary-bg); }
+  .contact-link.primary:hover { opacity: 0.88; }
+
+  /* ── Section label ── */
+  .section-label { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+  .section-label-num { font-size: 12px; font-weight: 700; color: var(--text-faint); font-family: 'JetBrains Mono', monospace; }
+  .section-label-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* ── Footer ── */
+  footer { background: #0A0A0F; padding: 44px 48px; text-align: center; border-top: 1px solid var(--border); }
+  .foot-name { font-size: 22px; color: #fff; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; }
+  .foot-designer { font-size: 14px; color: rgba(255,255,255,.75); font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px; }
+  .foot-sub { font-size: 12px; color: rgba(255,255,255,.42); text-transform: uppercase; letter-spacing: .8px; }
+
+  @media (max-width: 768px) {
+    .portfolio-header { padding: 0 20px; }
+    .sub-header-inner { padding: 0 20px; }
+    .sub-nav-links { display: none; }
+    .container { padding: 0 20px; }
+    .hero-content { padding: 100px 20px 40px 20px; }
+    .section { padding: 32px 0; }
+    .contact-section { padding: 40px 0; }
+  }
+</style>
+</head>
+<body>
+<!-- Apply saved theme instantly — no flash -->
+<script>
+  (function(){
+    var t = localStorage.getItem('theme') || localStorage.getItem('bh-theme') || 'dark';
+    if (t === 'light') {
+      document.documentElement.classList.add('light');
+    } else {
+      document.documentElement.classList.remove('light');
+    }
+  })();
+</script>
+
+<!-- Main Header -->
+<header class="portfolio-header">
+  <a href="/" class="header-logo">
+    <div class="header-avatar-wrap">
+      <img src="/uploads/profile.png" alt="Bharath Hegde" class="header-avatar">
+    </div>
+    <span>BHARATH HEGDE</span>
+  </a>
+  <div class="header-right">
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme">☀</button>
+    <a href="https://www.linkedin.com/in/bharathegde" target="_blank" class="header-cta">Hire Me</a>
+  </div>
+</header>
+
+<!-- Sub-header -->
+<div class="sub-header">
+  <div class="sub-header-inner">
+    <nav class="breadcrumbs">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/ABB-Genix-Platforms.html">ABB Genix</a>
+      <span class="sep">/</span>
+      <span class="current">Model Fabric 2.0</span>
+    </nav>
+    <ul class="sub-nav-links">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#details">Details</a></li>
+    </ul>
+  </div>
+</div>
+
+<div id="progress-bar"></div>
+
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="hero-img"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span>ABB Ability™ Genix</span> · Industrial Analytics and AI Suite · 2022 — 2023
+    </div>
+    <h1 class="hero-h1">Model Fabric 2.0</h1>
+    <p class="hero-sub">Advanced Analytics and statistical model management made easier for citizen data scientists and plant process engineers.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><label>Designer</label><span>Bharath Hegde</span></div>
+      <div class="hero-meta-item"><label>Role</label><span>Principal UX Analyst</span></div>
+      <div class="hero-meta-item"><label>Duration</label><span>Feb 2023 — Mar 2023</span></div>
+      <div class="hero-meta-item"><label>Type</label><span>Product Design &amp; AI Integration</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Overview -->
+<section class="section" id="overview">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">01</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="eyebrow">Project Overview</div>
+    <h2 class="section-title">Data exploration and statistical processing simplified.</h2>
+    <p class="body-text">
+      Model Fabric 2.0 is an enterprise statistical and AI model training tool within the ABB Ability™ Genix Platform. It empowers citizen data scientists and process engineers to build, train, recommend, and rapidly deploy machine learning models directly at continuous production industrial plants without writing code.
+    </p>
+    <div class="slide-container">
+      <img src="uploads/model_fabric_cover.png" alt="ABB Model Fabric 2.0 Slide Deck Cover" class="slide-image" />
+    </div>
+  </div>
+</section>
+
+<!-- Details -->
+<section class="section section-alt" id="details">
+  <div class="container">
+    <div class="section-label">
+      <span class="section-label-num">02</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="eyebrow">Project Status</div>
+    <h2 class="section-title">Information &amp; detailed slides are coming soon.</h2>
+    <p class="body-text">
+      The full design case study slides, high-fidelity wireframes, and process documentation for Model Fabric 2.0 are being compiled. More detailed information, user research findings, and mockups will be added to this case study shortly.
+    </p>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact-section">
+  <div class="container">
+    <h2 class="contact-thank">Thank <span>You.</span></h2>
+    <p class="contact-sub">Interested in design systems, enterprise software, or industrial AI architectures? Let's connect.</p>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/bharathegde" target="_blank" class="contact-link primary">LinkedIn</a>
+      <a href="mailto:bharathegde@gmail.com" class="contact-link">Email Designer</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="foot-name">BHARATH HEGDE</div>
+  <div class="foot-designer">Principal UX Analyst</div>
+  <div class="foot-sub">ABB Ability™ Genix Platforms © 2026</div>
+</footer>
+
+<script>
+  // ── Theme toggle ──
+  const btn = document.getElementById('themeToggle');
+
+  function applyTheme(t) {
+    if (t === 'light') {
+      document.documentElement.classList.add('light');
+      btn.textContent = '☽';
+      btn.title = 'Switch to dark mode';
+    } else {
+      document.documentElement.classList.remove('light');
+      btn.textContent = '☀';
+      btn.title = 'Switch to light mode';
+    }
+    localStorage.setItem('theme', t);
+    localStorage.setItem('bh-theme', t);
+  }
+
+  // Set button icon to match current state (class already applied at top)
+  applyTheme(localStorage.getItem('theme') || localStorage.getItem('bh-theme') || 'dark');
+
+  btn.addEventListener('click', () => {
+    const isDark = !document.documentElement.classList.contains('light');
+    applyTheme(isDark ? 'light' : 'dark');
+  });
+
+  // ── Progress bar ──
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const scrollTop = doc.scrollTop || document.body.scrollTop;
+    const scrollHeight = doc.scrollHeight - doc.clientHeight;
+    const pct = (scrollTop / scrollHeight) * 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  });
+</script>
+</body>
+</html>
