@@ -5,6 +5,8 @@ import VenturesCard from '@/components/VenturesCard';
 import ExperienceSection from '@/components/ExperienceSection';
 
 export default function Home() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
   const ventures = [
     {
       category: 'Redesign and Research',
@@ -14,9 +16,9 @@ export default function Home() {
       cardColor: '#0a1d37', // ADP Corporate Blue
       logoText: 'ADP',
       subLogoText: 'Enterprise Workflows & Tokens',
-      externalLink: '/ADP-SecurTime-Case-Study.html',
+      externalLink: `${basePath}/ADP-SecurTime-Case-Study.html`,
       tag: 'Design System',
-      coverImage: '/uploads/Screenshot 2026-05-26 at 4.02.18 PM.png',
+      coverImage: `${basePath}/uploads/Screenshot 2026-05-26 at 4.02.18 PM.png`,
       browserUrl: 'securtime.adp.com'
     },
     {
@@ -27,9 +29,9 @@ export default function Home() {
       cardColor: '#1a0d1a', // Deep industrial plum
       logoText: 'ABB',
       subLogoText: 'Genix Platforms',
-      externalLink: '/ABB-Genix-Platforms.html',
+      externalLink: `${basePath}/ABB-Genix-Platforms.html`,
       tag: 'Enterprise UX',
-      coverImage: '/uploads/olm-cover.jpeg',
+      coverImage: `${basePath}/uploads/olm-cover.jpeg`,
       browserUrl: 'abb-genix.abb.com'
     },
     {
@@ -42,7 +44,7 @@ export default function Home() {
       subLogoText: 'BIO4C Software Suite',
       externalLink: '#',
       tag: 'E-Commerce UX',
-      coverImage: '/uploads/049 IPB 50-1000L Fed Batch Full Portal@2x.png',
+      coverImage: `${basePath}/uploads/049 IPB 50-1000L Fed Batch Full Portal@2x.png`,
       browserUrl: 'bio4c.merckgroup.com'
     },
     {
@@ -55,10 +57,11 @@ export default function Home() {
       subLogoText: 'Web POS & Dashboards',
       externalLink: '#',
       tag: 'UI Engineering',
-      coverImage: '/uploads/lowes_pos_mockup.png',
+      coverImage: `${basePath}/uploads/lowes_pos_mockup.png`,
       browserUrl: 'pos.lowes.com'
     }
   ];
+
 
   const strengths = [
     'UX Strategy & Leadership',

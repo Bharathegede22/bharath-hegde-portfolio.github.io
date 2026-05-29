@@ -88,7 +88,7 @@ export default function PortfolioHeader() {
           >
             <div className="relative w-8 h-8 rounded-full overflow-hidden border border-border shrink-0">
               <img 
-                src="/uploads/profile.png" 
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/uploads/profile.png`} 
                 alt="Bharath Hegde" 
                 className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
               />
@@ -98,34 +98,34 @@ export default function PortfolioHeader() {
 
           {!isCaseStudy && (
             <nav className="hidden md:flex items-center gap-8">
-              <a 
+              <Link 
                 href={pathname === '/' ? '#works' : '/#works'} 
                 onClick={(e) => handleScrollTo(e, 'works')}
                 className="text-xs font-semibold tracking-wider text-muted hover:text-foreground uppercase transition-colors"
               >
                 Works
-              </a>
-              <a 
+              </Link>
+              <Link 
                 href={pathname === '/' ? '#experience' : '/#experience'} 
                 onClick={(e) => handleScrollTo(e, 'experience')}
                 className="text-xs font-semibold tracking-wider text-muted hover:text-foreground uppercase transition-colors"
               >
                 Experience
-              </a>
-              <a 
+              </Link>
+              <Link 
                 href={pathname === '/' ? '#principles' : '/#principles'} 
                 onClick={(e) => handleScrollTo(e, 'principles')}
                 className="text-xs font-semibold tracking-wider text-muted hover:text-foreground uppercase transition-colors"
               >
                 Principles
-              </a>
-              <a 
+              </Link>
+              <Link 
                 href={pathname === '/' ? '#contact' : '/#contact'} 
                 onClick={(e) => handleScrollTo(e, 'contact')}
                 className="text-xs font-semibold tracking-wider text-muted hover:text-foreground uppercase transition-colors"
               >
                 Contact
-              </a>
+              </Link>
               <button 
                 onClick={() => setIsResumeOpen(true)}
                 className="text-xs font-semibold tracking-wider text-muted hover:text-foreground uppercase transition-colors cursor-pointer"
@@ -166,13 +166,14 @@ export default function PortfolioHeader() {
               )}
             </button>
 
-            <a 
+            <Link 
               href={pathname === '/' ? '#contact' : '/#contact'}
               onClick={(e) => handleScrollTo(e, 'contact')}
               className="px-4 py-2 text-xs font-bold tracking-wider text-white bg-primary rounded-full hover:bg-primary-hover transition-colors shadow-sm uppercase"
             >
               Let's Talk
-            </a>
+            </Link>
+
           </div>
         </div>
       </header>
