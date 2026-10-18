@@ -1,0 +1,54 @@
+{% render 'noir-assets' %}
+<section class="noir noir-section noir-reviews">
+  <div class="noir-wrap noir-center">
+    {%- if section.settings.eyebrow != blank -%}<p class="noir-eyebrow" data-reveal>{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    <h2 class="noir-h2" data-reveal>{{ section.settings.heading }}</h2>
+    <div class="noir-reviews__grid">
+      {%- for block in section.blocks -%}
+        {%- assign rating = block.settings.rating -%}
+        <figure class="noir-review" data-reveal {{ block.shopify_attributes }}>
+          <span class="noir-rating__stars" aria-label="{{ rating }} out of 5 stars">
+            {%- for i in (1..5) -%}{% if i <= rating %}★{% else %}☆{% endif %}{%- endfor -%}
+          </span>
+          <blockquote>{{ block.settings.quote | escape }}</blockquote>
+          <figcaption><b>{{ block.settings.author | escape }}</b>{{ block.settings.meta | escape }}</figcaption>
+        </figure>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Noir testimonials",
+  "tag": "div",
+  "class": "noir-section-testimonials",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Reviews" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Lit in <em>12,000 homes.</em>" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "Replace with a real customer review." },
+        { "type": "text", "id": "author", "label": "Author", "default": "Customer name" },
+        { "type": "text", "id": "meta", "label": "Details", "default": "Verified buyer · City" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Noir testimonials",
+      "blocks": [
+        { "type": "review", "settings": { "rating": 5, "quote": "“The brass is heavier than I expected and the box looks beautiful on the shelf.”", "author": "Sample reviewer", "meta": "Verified buyer · Pune" } },
+        { "type": "review", "settings": { "rating": 5, "quote": "“Gifted three of these. Everyone asked where it was from.”", "author": "Sample reviewer", "meta": "Verified buyer · Bengaluru" } },
+        { "type": "review", "settings": { "rating": 4, "quote": "“Dhoop smells lovely and there’s almost no smoke. Delivery took three days.”", "author": "Sample reviewer", "meta": "Verified buyer · Kolkata" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

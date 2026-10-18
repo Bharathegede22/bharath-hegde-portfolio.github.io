@@ -1,0 +1,347 @@
+/*
+ * Noir Puja landing page template.
+ * Assign it to a page in Online Store → Pages → Theme template: page.noir-puja,
+ * then pick the product in the "Noir product" section.
+ */
+{
+  "sections": {
+    "announcement": {
+      "type": "noir-announcement",
+      "settings": {
+        "text": "Festive dispatch closes in",
+        "countdown_end": "2026-10-31T23:59:59+05:30",
+        "suffix": "Free shipping above ₹999",
+        "background": "#c9a45c",
+        "text_color": "#120f0a"
+      }
+    },
+    "hero": {
+      "type": "noir-hero",
+      "settings": {
+        "eyebrow": "The Festive Edit · Limited batch",
+        "heading": "A quieter, <em>darker</em> kind of puja.",
+        "text": "<p>Hand-finished brass, slow-burning attars and temple-grade ghee wicks, packed in a matte black keepsake box. Everything for the evening aarti, nothing you don’t need.</p>",
+        "countdown_end": "2026-10-31T23:59:59+05:30",
+        "countdown_label": "Offer ends in",
+        "primary_label": "Shop the box",
+        "secondary_label": "What’s inside",
+        "badge": "✦ Gift-ready packaging"
+      },
+      "blocks": {
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "value": "12k+",
+            "label": "homes lit"
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "value": "4.8★",
+            "label": "average rating"
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "value": "48h",
+            "label": "dispatch"
+          }
+        }
+      },
+      "block_order": [
+        "stat-1",
+        "stat-2",
+        "stat-3"
+      ]
+    },
+    "trust": {
+      "type": "noir-trust",
+      "settings": {},
+      "blocks": {
+        "item-1": {
+          "type": "item",
+          "settings": {
+            "icon": "✦",
+            "text": "Pure brass, hand-polished"
+          }
+        },
+        "item-2": {
+          "type": "item",
+          "settings": {
+            "icon": "◐",
+            "text": "Cash on delivery available"
+          }
+        },
+        "item-3": {
+          "type": "item",
+          "settings": {
+            "icon": "↺",
+            "text": "7-day easy returns"
+          }
+        },
+        "item-4": {
+          "type": "item",
+          "settings": {
+            "icon": "⌂",
+            "text": "Ships pan-India in 48h"
+          }
+        }
+      },
+      "block_order": [
+        "item-1",
+        "item-2",
+        "item-3",
+        "item-4"
+      ]
+    },
+    "product": {
+      "type": "noir-product",
+      "settings": {
+        "anchor": "buy",
+        "eyebrow": "Bestseller",
+        "rating_text": "4.8 · 1,240 reviews",
+        "tax_note": "Inclusive of all taxes. Shipping calculated at checkout.",
+        "button_label": "Add to cart",
+        "sold_out_label": "Sold out",
+        "after_add": "",
+        "show_sticky": true,
+        "product": ""
+      },
+      "blocks": {
+        "note-1": {
+          "type": "note",
+          "settings": {
+            "text": "Order by 28 Oct for delivery before the festival"
+          }
+        },
+        "note-2": {
+          "type": "note",
+          "settings": {
+            "text": "Free personalised gift note"
+          }
+        },
+        "note-3": {
+          "type": "note",
+          "settings": {
+            "text": "Secure checkout · UPI, cards, COD"
+          }
+        }
+      },
+      "block_order": [
+        "note-1",
+        "note-2",
+        "note-3"
+      ]
+    },
+    "features": {
+      "type": "noir-features",
+      "settings": {
+        "anchor": "inside",
+        "eyebrow": "What’s inside",
+        "heading": "Nine pieces, <em>chosen slowly.</em>",
+        "text": "<p>Each element is sourced from a single maker and finished by hand, so the whole box feels like one set.</p>"
+      },
+      "blocks": {
+        "feature-1": {
+          "type": "feature",
+          "settings": {
+            "title": "Hand-cast brass diya",
+            "text": "Sand-cast in Moradabad and polished to a soft, warm sheen that deepens with use."
+          }
+        },
+        "feature-2": {
+          "type": "feature",
+          "settings": {
+            "title": "Cow-ghee cotton wicks",
+            "text": "Pre-soaked, smokeless wicks that burn steady for around forty minutes each."
+          }
+        },
+        "feature-3": {
+          "type": "feature",
+          "settings": {
+            "title": "Oudh & sandal dhoop",
+            "text": "Hand-rolled cones with no charcoal base, so the room smells of resin, not smoke."
+          }
+        },
+        "feature-4": {
+          "type": "feature",
+          "settings": {
+            "title": "Black kumkum & haldi",
+            "text": "Stone-ground, in matte glass jars with brass lids you’ll want to keep."
+          }
+        },
+        "feature-5": {
+          "type": "feature",
+          "settings": {
+            "title": "Brass bell & thali",
+            "text": "A small hand bell with a clear tone and a 7-inch thali to hold it all."
+          }
+        },
+        "feature-6": {
+          "type": "feature",
+          "settings": {
+            "title": "Keepsake noir box",
+            "text": "Rigid matte-black box with a gold-foil seal. Reusable for jewellery or letters."
+          }
+        }
+      },
+      "block_order": [
+        "feature-1",
+        "feature-2",
+        "feature-3",
+        "feature-4",
+        "feature-5",
+        "feature-6"
+      ]
+    },
+    "steps": {
+      "type": "noir-steps",
+      "settings": {
+        "eyebrow": "The ritual",
+        "heading": "Evening aarti in <em>four steps.</em>"
+      },
+      "blocks": {
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "title": "Set the thali",
+            "text": "Place the diya, bell and jars on the thali in the order you like."
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "title": "Light the wick",
+            "text": "One pre-soaked wick per evening. No extra ghee needed."
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "title": "Offer the dhoop",
+            "text": "Light a cone from the diya’s flame and let it settle."
+          }
+        },
+        "step-4": {
+          "type": "step",
+          "settings": {
+            "title": "Ring & reflect",
+            "text": "Three rings of the bell, then a quiet minute before the lights come on."
+          }
+        }
+      },
+      "block_order": [
+        "step-1",
+        "step-2",
+        "step-3",
+        "step-4"
+      ]
+    },
+    "testimonials": {
+      "type": "noir-testimonials",
+      "settings": {
+        "eyebrow": "Reviews",
+        "heading": "Lit in <em>12,000 homes.</em>"
+      },
+      "blocks": {
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "“The brass is heavier than I expected and the box looks beautiful on the shelf.”",
+            "author": "Sample reviewer",
+            "meta": "Verified buyer · Pune"
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "“Gifted three of these. Everyone asked where it was from.”",
+            "author": "Sample reviewer",
+            "meta": "Verified buyer · Bengaluru"
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "rating": 4,
+            "quote": "“Dhoop smells lovely and there’s almost no smoke. Delivery took three days.”",
+            "author": "Sample reviewer",
+            "meta": "Verified buyer · Kolkata"
+          }
+        }
+      },
+      "block_order": [
+        "review-1",
+        "review-2",
+        "review-3"
+      ]
+    },
+    "faq": {
+      "type": "noir-faq",
+      "settings": {
+        "eyebrow": "FAQ",
+        "heading": "Before you <em>order.</em>"
+      },
+      "blocks": {
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "question": "How soon will it arrive?",
+            "answer": "<p>We dispatch within 48 hours. Metro cities usually receive it in 2–4 days, other pin codes in 4–7 days.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "question": "Is cash on delivery available?",
+            "answer": "<p>Yes, COD is available on most pin codes. Prepaid orders get priority dispatch.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "question": "Can I send it as a gift?",
+            "answer": "<p>Add a gift note at checkout. We leave out the invoice and print your message on a card.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "question": "How do I care for the brass?",
+            "answer": "<p>Wipe with a dry cloth after use. Once a month, polish with lemon and salt to bring back the shine.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question-1",
+        "question-2",
+        "question-3",
+        "question-4"
+      ]
+    },
+    "cta": {
+      "type": "noir-cta",
+      "settings": {
+        "eyebrow": "This festive season",
+        "heading": "Light it <em>differently.</em>",
+        "text": "<p>Limited batch of 2,000 boxes. When they’re gone, they’re gone until next year.</p>",
+        "button_label": "Get the Noir Puja Box"
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "hero",
+    "trust",
+    "product",
+    "features",
+    "steps",
+    "testimonials",
+    "faq",
+    "cta"
+  ]
+}

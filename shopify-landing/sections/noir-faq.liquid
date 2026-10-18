@@ -1,0 +1,70 @@
+{% render 'noir-assets' %}
+<section class="noir noir-section noir-faq">
+  <div class="noir-wrap noir-faq__grid">
+    <div data-reveal>
+      {%- if section.settings.eyebrow != blank -%}<p class="noir-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      <h2 class="noir-h2">{{ section.settings.heading }}</h2>
+    </div>
+    <div data-reveal>
+      {%- for block in section.blocks -%}
+        {%- assign answer_id = 'noir-faq-' | append: block.id -%}
+        <div class="noir-faq__item" {{ block.shopify_attributes }}>
+          <button class="noir-faq__q" type="button" aria-expanded="false" aria-controls="{{ answer_id }}">{{ block.settings.question | escape }}</button>
+          <div class="noir-faq__a" id="{{ answer_id }}" hidden>{{ block.settings.answer }}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{%- comment -%} FAQPage structured data for search results {%- endcomment -%}
+{%- if section.blocks.size > 0 -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {%- for block in section.blocks -%}
+        {
+          "@type": "Question",
+          "name": {{ block.settings.question | json }},
+          "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} }
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Noir FAQ",
+  "tag": "div",
+  "class": "noir-section-faq",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "FAQ" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Before you <em>order.</em>" }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "How soon will it arrive?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>We dispatch within 48 hours.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Noir FAQ",
+      "blocks": [
+        { "type": "question", "settings": { "question": "How soon will it arrive?", "answer": "<p>We dispatch within 48 hours. Metro cities usually receive it in 2–4 days, other pin codes in 4–7 days.</p>" } },
+        { "type": "question", "settings": { "question": "Is cash on delivery available?", "answer": "<p>Yes, COD is available on most pin codes. Prepaid orders get priority dispatch.</p>" } },
+        { "type": "question", "settings": { "question": "Can I send it as a gift?", "answer": "<p>Add a gift note at checkout. We leave out the invoice and print your message on a card.</p>" } },
+        { "type": "question", "settings": { "question": "How do I care for the brass?", "answer": "<p>Wipe with a dry cloth after use. Once a month, polish with lemon and salt to bring back the shine.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

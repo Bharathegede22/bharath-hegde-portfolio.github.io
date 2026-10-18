@@ -1,0 +1,55 @@
+{% render 'noir-assets' %}
+<section class="noir noir-section noir-features" id="{{ section.settings.anchor | default: 'inside' }}">
+  <div class="noir-wrap noir-center">
+    {%- if section.settings.eyebrow != blank -%}<p class="noir-eyebrow" data-reveal>{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    <h2 class="noir-h2" data-reveal>{{ section.settings.heading }}</h2>
+    {%- if section.settings.text != blank -%}<div class="noir-lead" data-reveal>{{ section.settings.text }}</div>{%- endif -%}
+    <div class="noir-features__grid">
+      {%- for block in section.blocks -%}
+        <div class="noir-feature" data-reveal {{ block.shopify_attributes }}>
+          <span class="noir-feature__num">{{ forloop.index }}.</span>
+          <h3 class="noir-h3">{{ block.settings.title | escape }}</h3>
+          <p>{{ block.settings.text | escape }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Noir features",
+  "tag": "div",
+  "class": "noir-section-features",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Section anchor", "default": "inside" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "What’s inside" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Nine pieces, <em>chosen slowly.</em>" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Each element is sourced from a single maker and finished by hand, so the whole box feels like one set.</p>" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Hand-cast brass diya" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Sand-cast in Moradabad and polished to a soft, warm sheen that deepens with use." }
+      ]
+    }
+  ],
+  "max_blocks": 9,
+  "presets": [
+    {
+      "name": "Noir features",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Hand-cast brass diya", "text": "Sand-cast in Moradabad and polished to a soft, warm sheen that deepens with use." } },
+        { "type": "feature", "settings": { "title": "Cow-ghee cotton wicks", "text": "Pre-soaked, smokeless wicks that burn steady for around forty minutes each." } },
+        { "type": "feature", "settings": { "title": "Oudh & sandal dhoop", "text": "Hand-rolled cones with no charcoal base, so the room smells of resin, not smoke." } },
+        { "type": "feature", "settings": { "title": "Black kumkum & haldi", "text": "Stone-ground, in matte glass jars with brass lids you’ll want to keep." } },
+        { "type": "feature", "settings": { "title": "Brass bell & thali", "text": "A small hand bell with a clear tone and a 7-inch thali to hold it all." } },
+        { "type": "feature", "settings": { "title": "Keepsake noir box", "text": "Rigid matte-black box with a gold-foil seal. Reusable for jewellery or letters." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

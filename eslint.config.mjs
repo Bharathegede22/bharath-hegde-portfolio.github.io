@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Standalone Shopify theme files, not part of the Next.js app
+    "shopify-landing/**",
   ]),
 ]);
 

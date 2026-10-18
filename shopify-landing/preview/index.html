@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Noir Puja Box — Preview</title>
+  <link rel="icon" href="data:,">
+  <meta name="description" content="Static preview of the Noir Puja Shopify landing page sections.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Inter:wght@400;600&display=swap">
+  <link rel="stylesheet" href="../assets/noir-landing.css">
+  <style>
+    body { margin: 0; background: #0b0a09; }
+    .preview-header, .preview-footer { display: flex; justify-content: space-between; align-items: center; padding: 18px 16px; color: #a89f8f; font: 14px Inter, sans-serif; }
+    .preview-header b { font: 500 22px "Cormorant Garamond", serif; color: #f3ece0; letter-spacing: .2em; }
+    .preview-footer { border-top: 1px solid #2a251d; padding-bottom: 96px; }
+  </style>
+</head>
+<body>
+<main class="noir" data-preview>
+
+  <!-- section: noir-announcement -->
+  <div class="noir-announce">Festive dispatch closes in <strong data-noir-countdown data-end="2026-10-31T23:59:59+05:30"><span data-unit="d">00</span>d <span data-unit="h">00</span>h <span data-unit="m">00</span>m</strong> · Free shipping above ₹999</div>
+
+  <header class="preview-header noir-wrap"><b>NOIR</b><span>Theme header renders here on Shopify</span></header>
+
+  <!-- section: noir-hero -->
+  <section class="noir-hero">
+    <div class="noir-wrap noir-hero__grid">
+      <div class="noir-hero__copy" data-reveal>
+        <p class="noir-eyebrow">The Festive Edit · Limited batch</p>
+        <h1 class="noir-h1">A quieter, <em>darker</em> kind of puja.</h1>
+        <p class="noir-lead">Hand-finished brass, slow-burning attars and temple-grade ghee wicks, packed in a matte black keepsake box. Everything for the evening aarti, nothing you don’t need.</p>
+        <div class="noir-countdown" data-noir-countdown data-end="2026-10-31T23:59:59+05:30" aria-label="Offer ends in">
+          <div class="noir-countdown__unit"><b data-unit="d">00</b><span>Days</span></div>
+          <div class="noir-countdown__unit"><b data-unit="h">00</b><span>Hrs</span></div>
+          <div class="noir-countdown__unit"><b data-unit="m">00</b><span>Min</span></div>
+          <div class="noir-countdown__unit"><b data-unit="s">00</b><span>Sec</span></div>
+        </div>
+        <div class="noir-hero__ctas">
+          <a class="noir-btn noir-btn--solid" href="#buy">Shop the box</a>
+          <a class="noir-btn noir-btn--ghost" href="#inside">What’s inside</a>
+        </div>
+        <div class="noir-hero__meta">
+          <div><b>12k+</b>homes lit</div>
+          <div><b>4.8★</b>average rating</div>
+          <div><b>48h</b>dispatch</div>
+        </div>
+      </div>
+      <div class="noir-hero__media" data-reveal>
+        <img src="../assets/noir-diya.svg" alt="Brass diya with a lit flame" width="800" height="1000">
+        <span class="noir-hero__badge">✦ Gift-ready packaging</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- section: noir-trust -->
+  <div class="noir-trust">
+    <ul class="noir-wrap noir-trust__list">
+      <li class="noir-trust__item"><span class="noir-trust__icon">✦</span>Pure brass, hand-polished</li>
+      <li class="noir-trust__item"><span class="noir-trust__icon">◐</span>Cash on delivery available</li>
+      <li class="noir-trust__item"><span class="noir-trust__icon">↺</span>7-day easy returns</li>
+      <li class="noir-trust__item"><span class="noir-trust__icon">⌂</span>Ships pan-India in 48h</li>
+    </ul>
+  </div>
+
+  <!-- section: noir-product -->
+  <section class="noir-section noir-product" id="buy">
+    <div class="noir-wrap noir-product__grid">
+      <div class="noir-gallery" data-noir-gallery data-reveal>
+        <div class="noir-gallery__main"><img src="../assets/noir-diya.svg" alt="Noir Puja Box" width="800" height="1000"></div>
+        <div class="noir-gallery__thumbs">
+          <button type="button" class="noir-gallery__thumb" aria-current="true" aria-label="Image 1"><img src="../assets/noir-diya.svg" alt="" width="800" height="1000"></button>
+          <button type="button" class="noir-gallery__thumb" aria-label="Image 2"><img src="../assets/noir-diya.svg" alt="" width="800" height="1000" style="filter:hue-rotate(-20deg) saturate(1.3)"></button>
+          <button type="button" class="noir-gallery__thumb" aria-label="Image 3"><img src="../assets/noir-diya.svg" alt="" width="800" height="1000" style="filter:grayscale(.6)"></button>
+          <button type="button" class="noir-gallery__thumb" aria-label="Image 4"><img src="../assets/noir-diya.svg" alt="" width="800" height="1000" style="filter:brightness(1.3)"></button>
+        </div>
+      </div>
+
+      <div class="noir-buy" data-reveal>
+        <p class="noir-eyebrow">Bestseller</p>
+        <h2 class="noir-h2">The Noir Puja Box</h2>
+        <div class="noir-rating"><span class="noir-rating__stars">★★★★★</span> 4.8 · 1,240 reviews</div>
+        <div class="noir-price">
+          <span class="noir-price__now" data-price-now>₹1,899.00</span>
+          <s class="noir-price__was" data-price-was>₹2,499.00</s>
+          <span class="noir-price__save" data-price-save>Save 24%</span>
+        </div>
+        <p class="noir-tax">Inclusive of all taxes. Shipping calculated at checkout.</p>
+
+        <form class="noir-buy__form" data-noir-product action="/cart/add" method="post">
+          <script type="application/json" data-noir-money>"₹{{amount}}"</script>
+          <script type="application/json" data-noir-variants>
+            [
+              {"id": 1, "options": ["Classic", "Brass"], "price": 189900, "compare_at_price": 249900, "available": true},
+              {"id": 2, "options": ["Classic", "Black oxide"], "price": 209900, "compare_at_price": 269900, "available": true},
+              {"id": 3, "options": ["Grand", "Brass"], "price": 299900, "compare_at_price": 379900, "available": true},
+              {"id": 4, "options": ["Grand", "Black oxide"], "price": 319900, "compare_at_price": 399900, "available": false}
+            ]
+          </script>
+          <input type="hidden" name="id" value="1">
+
+          <fieldset class="noir-field" data-option-index="0">
+            <legend class="noir-label">Size</legend>
+            <div class="noir-options">
+              <label class="noir-option"><input type="radio" name="option-0" value="Classic" checked><span>Classic · 9 pieces</span></label>
+              <label class="noir-option"><input type="radio" name="option-0" value="Grand"><span>Grand · 15 pieces</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="noir-field" data-option-index="1">
+            <legend class="noir-label">Finish</legend>
+            <div class="noir-options">
+              <label class="noir-option"><input type="radio" name="option-1" value="Brass" checked><span>Brass</span></label>
+              <label class="noir-option"><input type="radio" name="option-1" value="Black oxide"><span>Black oxide</span></label>
+            </div>
+          </fieldset>
+
+          <div class="noir-buy__row">
+            <div class="noir-qty">
+              <button type="button" data-qty="-1" aria-label="Decrease quantity">−</button>
+              <input type="number" name="quantity" value="1" min="1" aria-label="Quantity">
+              <button type="button" data-qty="1" aria-label="Increase quantity">+</button>
+            </div>
+            <button type="submit" class="noir-btn noir-btn--solid noir-btn--block" data-label-add="Add to cart" data-label-sold-out="Sold out">Add to cart</button>
+          </div>
+        </form>
+
+        <ul class="noir-buy__notes">
+          <li>Order by 28 Oct for delivery before the festival</li>
+          <li>Free personalised gift note</li>
+          <li>Secure checkout · UPI, cards, COD</li>
+        </ul>
+      </div>
+    </div>
+  <!-- sticky add-to-cart (part of noir-product) -->
+    <div class="noir-sticky">
+      <div class="noir-sticky__info"><b>The Noir Puja Box</b><span data-sticky-price>₹1,899.00</span></div>
+      <button type="button" class="noir-btn noir-btn--solid" data-sticky-buy>Add to cart</button>
+    </div>
+  </section>
+
+  <!-- section: noir-features -->
+  <section class="noir-section noir-features" id="inside">
+    <div class="noir-wrap noir-center">
+      <p class="noir-eyebrow" data-reveal>What’s inside</p>
+      <h2 class="noir-h2" data-reveal>Nine pieces, <em>chosen slowly.</em></h2>
+      <p class="noir-lead" data-reveal>Each element is sourced from a single maker and finished by hand, so the whole box feels like one set.</p>
+      <div class="noir-features__grid">
+        <div class="noir-feature" data-reveal><span class="noir-feature__num">i.</span><h3 class="noir-h3">Hand-cast brass diya</h3><p>Sand-cast in Moradabad and polished to a soft, warm sheen that deepens with use.</p></div>
+        <div class="noir-feature" data-reveal><span class="noir-feature__num">ii.</span><h3 class="noir-h3">Cow-ghee cotton wicks</h3><p>Pre-soaked, smokeless wicks that burn steady for around forty minutes each.</p></div>
+        <div class="noir-feature" data-reveal><span class="noir-feature__num">iii.</span><h3 class="noir-h3">Oudh &amp; sandal dhoop</h3><p>Hand-rolled cones with no charcoal base, so the room smells of resin, not smoke.</p></div>
+        <div class="noir-feature" data-reveal><span class="noir-feature__num">iv.</span><h3 class="noir-h3">Black kumkum &amp; haldi</h3><p>Stone-ground, in matte glass jars with brass lids you’ll want to keep.</p></div>
+        <div class="noir-feature" data-reveal><span class="noir-feature__num">v.</span><h3 class="noir-h3">Brass bell &amp; thali</h3><p>A small hand bell with a clear tone and a 7-inch thali to hold it all.</p></div>
+        <div class="noir-feature" data-reveal><span class="noir-feature__num">vi.</span><h3 class="noir-h3">Keepsake noir box</h3><p>Rigid matte-black box with a gold-foil seal. Reusable for jewellery or letters.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- section: noir-steps -->
+  <section class="noir-section noir-steps">
+    <div class="noir-wrap">
+      <p class="noir-eyebrow" data-reveal>The ritual</p>
+      <h2 class="noir-h2" data-reveal>Evening aarti in <em>four steps.</em></h2>
+      <ol class="noir-steps__list">
+        <li class="noir-step" data-reveal><h3>Set the thali</h3><p>Place the diya, bell and jars on the thali in the order you like.</p></li>
+        <li class="noir-step" data-reveal><h3>Light the wick</h3><p>One pre-soaked wick per evening. No extra ghee needed.</p></li>
+        <li class="noir-step" data-reveal><h3>Offer the dhoop</h3><p>Light a cone from the diya’s flame and let it settle.</p></li>
+        <li class="noir-step" data-reveal><h3>Ring &amp; reflect</h3><p>Three rings of the bell, then a quiet minute before the lights come on.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- section: noir-testimonials -->
+  <section class="noir-section noir-reviews">
+    <div class="noir-wrap noir-center">
+      <p class="noir-eyebrow" data-reveal>Reviews</p>
+      <h2 class="noir-h2" data-reveal>Lit in <em>12,000 homes.</em></h2>
+      <div class="noir-reviews__grid">
+        <figure class="noir-review" data-reveal><span class="noir-rating__stars">★★★★★</span><blockquote>“The brass is heavier than I expected and the box looks beautiful on the shelf.”</blockquote><figcaption><b>Sample reviewer</b>Verified buyer · Pune</figcaption></figure>
+        <figure class="noir-review" data-reveal><span class="noir-rating__stars">★★★★★</span><blockquote>“Gifted three of these. Everyone asked where it was from.”</blockquote><figcaption><b>Sample reviewer</b>Verified buyer · Bengaluru</figcaption></figure>
+        <figure class="noir-review" data-reveal><span class="noir-rating__stars">★★★★☆</span><blockquote>“Dhoop smells lovely and there’s almost no smoke. Delivery took three days.”</blockquote><figcaption><b>Sample reviewer</b>Verified buyer · Kolkata</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- section: noir-faq -->
+  <section class="noir-section noir-faq">
+    <div class="noir-wrap noir-faq__grid">
+      <div data-reveal>
+        <p class="noir-eyebrow">FAQ</p>
+        <h2 class="noir-h2">Before you <em>order.</em></h2>
+      </div>
+      <div data-reveal>
+        <div class="noir-faq__item"><button class="noir-faq__q" type="button" aria-expanded="false" aria-controls="faq-1">How soon will it arrive?</button><div class="noir-faq__a" id="faq-1" hidden>We dispatch within 48 hours. Metro cities usually receive it in 2–4 days, other pin codes in 4–7 days.</div></div>
+        <div class="noir-faq__item"><button class="noir-faq__q" type="button" aria-expanded="false" aria-controls="faq-2">Is cash on delivery available?</button><div class="noir-faq__a" id="faq-2" hidden>Yes, COD is available on most pin codes. Prepaid orders get priority dispatch.</div></div>
+        <div class="noir-faq__item"><button class="noir-faq__q" type="button" aria-expanded="false" aria-controls="faq-3">Can I send it as a gift?</button><div class="noir-faq__a" id="faq-3" hidden>Add a gift note at checkout. We leave out the invoice and print your message on a card.</div></div>
+        <div class="noir-faq__item"><button class="noir-faq__q" type="button" aria-expanded="false" aria-controls="faq-4">How do I care for the brass?</button><div class="noir-faq__a" id="faq-4" hidden>Wipe with a dry cloth after use. Once a month, polish with lemon and salt to bring back the shine.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- section: noir-cta -->
+  <section class="noir-section noir-cta">
+    <div class="noir-wrap" data-reveal>
+      <p class="noir-eyebrow">This festive season</p>
+      <h2 class="noir-h2">Light it <em>differently.</em></h2>
+      <p class="noir-lead">Limited batch of 2,000 boxes. When they’re gone, they’re gone until next year.</p>
+      <a class="noir-btn noir-btn--solid" href="#buy">Get the Noir Puja Box</a>
+    </div>
+  </section>
+
+
+  <footer class="preview-footer noir-wrap"><span>© Noir</span><span>Theme footer renders here on Shopify</span></footer>
+</main>
+<script src="../assets/noir-landing.js" defer></script>
+</body>
+</html>

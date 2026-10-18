@@ -1,0 +1,9 @@
+{%- comment -%}
+  Shared fonts, styles and script for the Noir landing sections.
+  Rendered by every noir-* section so each one works on its own in any template.
+{%- endcomment -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Inter:wght@400;600&display=swap">
+{{ 'noir-landing.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'noir-landing.js' | asset_url }}" defer="defer"></script>

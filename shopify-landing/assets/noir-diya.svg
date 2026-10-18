@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Brass diya with a lit flame on a dark background">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="42%" r="55%">
+      <stop offset="0" stop-color="#f2c46b" stop-opacity=".55"/>
+      <stop offset=".35" stop-color="#b5482a" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#0b0a09" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="brass" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#f1d79c"/>
+      <stop offset=".45" stop-color="#c9a45c"/>
+      <stop offset="1" stop-color="#6e5226"/>
+    </linearGradient>
+    <linearGradient id="flame" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff6d8"/>
+      <stop offset=".5" stop-color="#ffc35a"/>
+      <stop offset="1" stop-color="#e0662f"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="#100e0b"/>
+  <rect width="800" height="1000" fill="url(#glow)"/>
+  <g fill="none" stroke="#c9a45c" stroke-opacity=".18">
+    <circle cx="400" cy="470" r="250"/>
+    <circle cx="400" cy="470" r="310"/>
+    <circle cx="400" cy="470" r="370" stroke-dasharray="2 10"/>
+  </g>
+  <path d="M400 330c-34 52-50 92-50 124 0 30 22 52 50 52s50-22 50-52c0-32-16-72-50-124z" fill="url(#flame)"/>
+  <path d="M400 392c-14 24-20 42-20 56 0 13 9 22 20 22s20-9 20-22c0-14-6-32-20-56z" fill="#fff8e6"/>
+  <rect x="396" y="500" width="8" height="26" rx="3" fill="#3a2a15"/>
+  <path d="M210 540c40 70 110 108 190 108s150-38 190-108c-60 18-120 26-190 26s-130-8-190-26z" fill="url(#brass)"/>
+  <ellipse cx="400" cy="540" rx="190" ry="22" fill="#f1d79c" opacity=".7"/>
+  <path d="M590 536c30-4 52-16 64-34-30 4-52 14-64 34z" fill="url(#brass)"/>
+  <path d="M340 646h120l26 70H314z" fill="url(#brass)"/>
+  <ellipse cx="400" cy="722" rx="120" ry="16" fill="#6e5226"/>
+  <g fill="#c9a45c" opacity=".5">
+    <circle cx="200" cy="820" r="4"/><circle cx="260" cy="850" r="3"/><circle cx="560" cy="840" r="4"/><circle cx="610" cy="810" r="3"/>
+  </g>
+</svg>

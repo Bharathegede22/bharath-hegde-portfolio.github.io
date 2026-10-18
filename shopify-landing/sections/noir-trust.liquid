@@ -1,0 +1,40 @@
+{% render 'noir-assets' %}
+<div class="noir noir-trust">
+  <ul class="noir-wrap noir-trust__list">
+    {%- for block in section.blocks -%}
+      <li class="noir-trust__item" {{ block.shopify_attributes }}>
+        <span class="noir-trust__icon" aria-hidden="true">{{ block.settings.icon | escape }}</span>{{ block.settings.text | escape }}
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "Noir trust strip",
+  "tag": "div",
+  "class": "noir-section-trust",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust point",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon (single character)", "default": "✦" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Pure brass, hand-polished" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Noir trust strip",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "✦", "text": "Pure brass, hand-polished" } },
+        { "type": "item", "settings": { "icon": "◐", "text": "Cash on delivery available" } },
+        { "type": "item", "settings": { "icon": "↺", "text": "7-day easy returns" } },
+        { "type": "item", "settings": { "icon": "⌂", "text": "Ships pan-India in 48h" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

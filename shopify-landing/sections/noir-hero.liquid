@@ -1,0 +1,87 @@
+{% render 'noir-assets' %}
+<section class="noir noir-hero" id="noir-hero-{{ section.id }}">
+  <div class="noir-wrap noir-hero__grid">
+    <div class="noir-hero__copy" data-reveal>
+      {%- if section.settings.eyebrow != blank -%}<p class="noir-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h1 class="noir-h1">{{ section.settings.heading }}</h1>
+      {%- if section.settings.text != blank -%}<div class="noir-lead">{{ section.settings.text }}</div>{%- endif -%}
+
+      {%- if section.settings.countdown_end != blank -%}
+        <div class="noir-countdown" data-noir-countdown data-end="{{ section.settings.countdown_end | escape }}" aria-label="{{ section.settings.countdown_label | escape }}">
+          <div class="noir-countdown__unit"><b data-unit="d">00</b><span>Days</span></div>
+          <div class="noir-countdown__unit"><b data-unit="h">00</b><span>Hrs</span></div>
+          <div class="noir-countdown__unit"><b data-unit="m">00</b><span>Min</span></div>
+          <div class="noir-countdown__unit"><b data-unit="s">00</b><span>Sec</span></div>
+        </div>
+      {%- endif -%}
+
+      <div class="noir-hero__ctas">
+        {%- if section.settings.primary_label != blank -%}
+          <a class="noir-btn noir-btn--solid" href="{{ section.settings.primary_link | default: '#buy' }}">{{ section.settings.primary_label | escape }}</a>
+        {%- endif -%}
+        {%- if section.settings.secondary_label != blank -%}
+          <a class="noir-btn noir-btn--ghost" href="{{ section.settings.secondary_link | default: '#inside' }}">{{ section.settings.secondary_label | escape }}</a>
+        {%- endif -%}
+      </div>
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="noir-hero__meta">
+          {%- for block in section.blocks -%}
+            <div {{ block.shopify_attributes }}><b>{{ block.settings.value | escape }}</b>{{ block.settings.label | escape }}</div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="noir-hero__media" data-reveal>
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 960px) 45vw, 100vw', widths: '450, 700, 900, 1200' }}
+      {%- else -%}
+        <img src="{{ 'noir-diya.svg' | asset_url }}" alt="Brass diya with a lit flame" width="800" height="1000">
+      {%- endif -%}
+      {%- if section.settings.badge != blank -%}<span class="noir-hero__badge">{{ section.settings.badge | escape }}</span>{%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Noir hero",
+  "tag": "div",
+  "class": "noir-section-hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Festive Edit · Limited batch" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Italicise words to show them in gold.", "default": "A quieter, <em>darker</em> kind of puja." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Hand-finished brass, slow-burning attars and temple-grade ghee wicks, packed in a matte black keepsake box. Everything for the evening aarti, nothing you don’t need.</p>" },
+    { "type": "text", "id": "countdown_end", "label": "Countdown end (ISO date)", "info": "Example: 2026-10-31T23:59:59+05:30. Leave blank to hide.", "default": "2026-10-31T23:59:59+05:30" },
+    { "type": "text", "id": "countdown_label", "label": "Countdown label (screen readers)", "default": "Offer ends in" },
+    { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Shop the box" },
+    { "type": "url", "id": "primary_link", "label": "Primary button link", "info": "Defaults to the product section (#buy)." },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "What’s inside" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary button link", "info": "Defaults to the features section (#inside)." },
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Portrait, 4:5. The top is cropped to an arch." },
+    { "type": "text", "id": "badge", "label": "Image badge", "default": "✦ Gift-ready packaging" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "12k+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "homes lit" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Noir hero",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "12k+", "label": "homes lit" } },
+        { "type": "stat", "settings": { "value": "4.8★", "label": "average rating" } },
+        { "type": "stat", "settings": { "value": "48h", "label": "dispatch" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,155 @@
+{% render 'noir-assets' %}
+{%- liquid
+  assign product = section.settings.product | default: product
+  if product
+    assign current = product.selected_or_first_available_variant
+  endif
+-%}
+<section class="noir noir-section noir-product" id="{{ section.settings.anchor | default: 'buy' }}">
+  <div class="noir-wrap">
+    {%- if product == blank -%}
+      <div class="noir-empty">Choose a product in this section’s settings.</div>
+    {%- else -%}
+      <div class="noir-product__grid">
+        <div class="noir-gallery" data-noir-gallery data-reveal>
+          <div class="noir-gallery__main">
+            {%- if product.featured_media -%}
+              {%- assign media_alt = product.featured_media.alt | default: product.title -%}
+              {{ product.featured_media.preview_image | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 960px) 50vw, 100vw', widths: '600, 900, 1200', alt: media_alt }}
+            {%- else -%}
+              <img src="{{ 'noir-diya.svg' | asset_url }}" alt="{{ product.title | escape }}" width="800" height="1000" loading="lazy">
+            {%- endif -%}
+          </div>
+          {%- if product.media.size > 1 -%}
+            <div class="noir-gallery__thumbs">
+              {%- for media in product.media limit: 4 -%}
+                {%- assign media_alt = media.alt | default: product.title -%}
+                <button type="button" class="noir-gallery__thumb" aria-label="Show image {{ forloop.index }}"{% if forloop.first %} aria-current="true"{% endif %}>
+                  {{ media.preview_image | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 960px) 50vw, 100vw', widths: '300, 600, 1200', alt: media_alt }}
+                </button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="noir-buy" data-reveal>
+          {%- if section.settings.eyebrow != blank -%}<p class="noir-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+          <h2 class="noir-h2">{{ product.title }}</h2>
+          {%- if section.settings.rating_text != blank -%}
+            <div class="noir-rating"><span class="noir-rating__stars" aria-hidden="true">★★★★★</span> {{ section.settings.rating_text | escape }}</div>
+          {%- endif -%}
+
+          {%- liquid
+            assign on_sale = false
+            if current.compare_at_price > current.price
+              assign on_sale = true
+              assign save_pct = current.compare_at_price | minus: current.price | times: 100.0 | divided_by: current.compare_at_price | round
+            endif
+          -%}
+          <div class="noir-price">
+            <span class="noir-price__now" data-price-now>{{ current.price | money }}</span>
+            <s class="noir-price__was" data-price-was{% unless on_sale %} hidden{% endunless %}>{% if on_sale %}{{ current.compare_at_price | money }}{% endif %}</s>
+            <span class="noir-price__save" data-price-save{% unless on_sale %} hidden{% endunless %}>{% if on_sale %}Save {{ save_pct }}%{% endif %}</span>
+          </div>
+          {%- if section.settings.tax_note != blank -%}<p class="noir-tax">{{ section.settings.tax_note | escape }}</p>{%- endif -%}
+
+          {%- form 'product', product, class: 'noir-buy__form', data-noir-product: '', data-after-add: section.settings.after_add -%}
+            <script type="application/json" data-noir-money>{{ shop.money_format | json }}</script>
+            <script type="application/json" data-noir-variants>{{ product.variants | json }}</script>
+            <input type="hidden" name="id" value="{{ current.id }}">
+
+            {%- unless product.has_only_default_variant -%}
+              {%- for option in product.options_with_values -%}
+                <fieldset class="noir-field" data-option-index="{{ forloop.index0 }}">
+                  <legend class="noir-label">{{ option.name | escape }}</legend>
+                  <div class="noir-options">
+                    {%- for value in option.values -%}
+                      <label class="noir-option">
+                        <input type="radio" name="{{ section.id }}-option-{{ forloop.parentloop.index0 }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %}>
+                        <span>{{ value | escape }}</span>
+                      </label>
+                    {%- endfor -%}
+                  </div>
+                </fieldset>
+              {%- endfor -%}
+            {%- endunless -%}
+
+            <div class="noir-buy__row">
+              <div class="noir-qty">
+                <button type="button" data-qty="-1" aria-label="Decrease quantity">−</button>
+                <input type="number" name="quantity" value="1" min="1" aria-label="Quantity">
+                <button type="button" data-qty="1" aria-label="Increase quantity">+</button>
+              </div>
+              <button type="submit" class="noir-btn noir-btn--solid noir-btn--block"
+                data-label-add="{{ section.settings.button_label | escape }}"
+                data-label-sold-out="{{ section.settings.sold_out_label | escape }}"
+                {% unless current.available %}disabled{% endunless %}>
+                {%- if current.available -%}{{ section.settings.button_label | escape }}{%- else -%}{{ section.settings.sold_out_label | escape }}{%- endif -%}
+              </button>
+            </div>
+          {%- endform -%}
+
+          {%- if section.blocks.size > 0 -%}
+            <ul class="noir-buy__notes">
+              {%- for block in section.blocks -%}
+                <li {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- if section.settings.show_sticky -%}
+        <div class="noir-sticky">
+          <div class="noir-sticky__info"><b>{{ product.title | escape }}</b><span data-sticky-price>{{ current.price | money }}</span></div>
+          <button type="button" class="noir-btn noir-btn--solid" data-sticky-buy>{{ section.settings.button_label | escape }}</button>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Noir product",
+  "tag": "div",
+  "class": "noir-section-product",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product", "info": "On a product template this can be left blank to use the current product." },
+    { "type": "text", "id": "anchor", "label": "Section anchor", "info": "Hero buttons link to #buy by default.", "default": "buy" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Bestseller" },
+    { "type": "text", "id": "rating_text", "label": "Rating text", "info": "Leave blank to hide the stars.", "default": "4.8 · 1,240 reviews" },
+    { "type": "text", "id": "tax_note", "label": "Tax note", "default": "Inclusive of all taxes. Shipping calculated at checkout." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Add to cart" },
+    { "type": "text", "id": "sold_out_label", "label": "Sold-out label", "default": "Sold out" },
+    {
+      "type": "select", "id": "after_add", "label": "After adding to cart",
+      "options": [
+        { "value": "", "label": "Stay on page" },
+        { "value": "/cart", "label": "Go to cart" },
+        { "value": "/checkout", "label": "Go to checkout" }
+      ],
+      "default": ""
+    },
+    { "type": "checkbox", "id": "show_sticky", "label": "Show sticky add-to-cart on mobile", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "note",
+      "name": "Note",
+      "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "Free personalised gift note" }]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Noir product",
+      "blocks": [
+        { "type": "note", "settings": { "text": "Order by 28 Oct for delivery before the festival" } },
+        { "type": "note", "settings": { "text": "Free personalised gift note" } },
+        { "type": "note", "settings": { "text": "Secure checkout · UPI, cards, COD" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

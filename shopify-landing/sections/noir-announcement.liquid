@@ -1,0 +1,26 @@
+{% render 'noir-assets' %}
+<div class="noir noir-announce" style="background: {{ section.settings.background }}; color: {{ section.settings.text_color }};">
+  {{ section.settings.text }}
+  {%- if section.settings.countdown_end != blank -%}
+    <strong data-noir-countdown data-end="{{ section.settings.countdown_end | escape }}">
+      <span data-unit="d">00</span>d <span data-unit="h">00</span>h <span data-unit="m">00</span>m
+    </strong>
+  {%- endif -%}
+  {%- if section.settings.suffix != blank %} · {{ section.settings.suffix }}{% endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Noir announcement",
+  "tag": "section",
+  "class": "noir-section-announcement",
+  "settings": [
+    { "type": "inline_richtext", "id": "text", "label": "Text before countdown", "default": "Festive dispatch closes in" },
+    { "type": "text", "id": "countdown_end", "label": "Countdown end (ISO date)", "info": "Example: 2026-10-31T23:59:59+05:30. Leave blank to hide.", "default": "2026-10-31T23:59:59+05:30" },
+    { "type": "inline_richtext", "id": "suffix", "label": "Text after countdown", "default": "Free shipping above ₹999" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#c9a45c" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#120f0a" }
+  ],
+  "presets": [{ "name": "Noir announcement" }]
+}
+{% endschema %}

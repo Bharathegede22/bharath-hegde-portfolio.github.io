@@ -1,0 +1,49 @@
+{% render 'noir-assets' %}
+<section class="noir noir-section noir-steps">
+  <div class="noir-wrap">
+    {%- if section.settings.eyebrow != blank -%}<p class="noir-eyebrow" data-reveal>{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    <h2 class="noir-h2" data-reveal>{{ section.settings.heading }}</h2>
+    <ol class="noir-steps__list">
+      {%- for block in section.blocks -%}
+        <li class="noir-step" data-reveal {{ block.shopify_attributes }}>
+          <h3>{{ block.settings.title | escape }}</h3>
+          <p>{{ block.settings.text | escape }}</p>
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Noir steps",
+  "tag": "div",
+  "class": "noir-section-steps",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The ritual" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Evening aarti in <em>four steps.</em>" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Set the thali" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Place the diya, bell and jars on the thali in the order you like." }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Noir steps",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Set the thali", "text": "Place the diya, bell and jars on the thali in the order you like." } },
+        { "type": "step", "settings": { "title": "Light the wick", "text": "One pre-soaked wick per evening. No extra ghee needed." } },
+        { "type": "step", "settings": { "title": "Offer the dhoop", "text": "Light a cone from the diya’s flame and let it settle." } },
+        { "type": "step", "settings": { "title": "Ring & reflect", "text": "Three rings of the bell, then a quiet minute before the lights come on." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
